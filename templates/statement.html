@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+{#	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">#}
+
+    <style>
+
+        {#.table td, .table th {#}
+        {#    padding: .75rem;#}
+        {#    vertical-align: top;#}
+        {#    border-top: 1px solid #dee2e6;#}
+        {#}#}
+        {##}
+        {#table {#}
+        {#    border-collapse: collapse;#}
+        }
+        {#.low {#}
+        {#    margin-top: 50px;#}
+        {#}#}
+
+        {#tr {#}
+        {#    display: table-row;#}
+        {#    vertical-align: inherit;#}
+        {#    border-color: inherit;#}
+        {#}#}
+
+        {#table {#}
+        {#  font-family: arial, sans-serif;#}
+        {#  border-collapse: collapse;#}
+        {#  width: 100%;#}
+        {#  overflow: hidden;#}
+        {#}#}
+
+        td, th {
+          {#border: 1px solid #dddddd!important;#}
+          text-align: left!important;
+          padding: 8px!important;
+          width: 100%!important;
+          white-space: nowrap!important;
+        }
+
+        tr:nth-child(0) {
+          background-color: #dddddd;
+        }
+        th {
+          background-color: #dddddd;
+          width: inherit!important;
+        }
+        table {
+            border-collapse: inherit;
+        }
+
+
+    </style>
+
+</head>
+<body>
+ <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                <li><a href="#" class="text-white">Follow on Twitter</a></li>
+                <li><a href="#" class="text-white">Like on Facebook</a></li>
+                <li><a href="#" class="text-white">Email me</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between">
+      <a href="projects.html" class="navbar-brand d-flex align-items-center">
+        <svg xmlns="" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <strong>MOOBO</strong>
+      </a>
+      <a href="login.html" class="logout">
+          <button type="button" class="btn btn-sm btn-outline-secondary">Выйти</button>
+      </a>
+
+     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>-->
+    </div>
+  </div>
+ </header>
+
+<div class="table-responsive low">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Проект</th>
+              <th scope="col">Название комнаты</th>
+              <th scope="col">Фото</th>
+              <th scope="col">Имя продукта</th>
+              <th scope="col">Тип продукта</th>
+              <th scope="col">Комнаты</th>
+              <th scope="col">Ссылка на товар</th>
+              <th scope="col">Модель/Артикул</th>
+              <th scope="col">Цена постащика(БЕЗ СКИДКИ!)</th>
+              <th scope="col">Скидка для клиента</th>
+              <th scope="col">Скидка для дизайнера</th>
+              <th scope="col">Количество</th>
+              <th scope="col">Общая сумма позиции</th>
+              <th scope="col">Поставщик</th>
+              <th scope="col">Наличие на складе</th>
+              <th scope="col">3dmax(файл)</th>
+              <th scope="col">Revit(файл)</th>
+              <th scope="col">Техническая инструкция(файл)</th>
+              <th scope="col">Username</th>
+              <th scope="col">Согласие клиента</th>
+            </tr>
+        </thead>
+        <tbody class="table-hover">
+          <tr>
+            <th scope="row">1</th>
+            <td>Alfreds Futterkiste</td>
+            <td>Maria Anders</td>
+            <td>Germany</td>
+          </tr>
+          <tr>
+            <th scope="row">2</th>
+            <td>Centro comercial Moctezuma</td>
+            <td>Francisco Chang</td>
+            <td>Mexico</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td>Ernst Handel</td>
+            <td>Roland Mendel</td>
+            <td>Austria</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td>Island Trading</td>
+            <td>Helen Bennett</td>
+            <td>UK</td>
+          </tr>
+          <tr>
+            <th scope="row">5</th>
+            <td>Laughing Bacchus Winecellars</td>
+            <td>Yoshi Tannamuri</td>
+            <td>Canada</td>
+          </tr>
+          <tr>
+            <th scope="row">6</th>
+            <td>Magazzini Alimentari Riuniti</td>
+            <td>Giovanni Rovelli</td>
+            <td>Italy</td>
+          </tr>
+        </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

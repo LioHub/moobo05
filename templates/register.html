@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link href="login.css" rel="stylesheet">
+</head>
+
+<body class="bg-default">
+
+    <!-- Header -->
+    <div class="header bg-gradient-primary py-7 py-lg-8">
+  <div class="container">
+    <div class="header-body text-center mb-7">
+      <div class="row justify-content-center">
+        <div class="col-lg-5 col-md-6">
+          <h1 class="text-white">Welcome!</h1>
+          <p class="text-lead text-light">Use these awesome forms to login or create new account in your project for free.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Page content -->
+    <div class="container mt--8 pb-5">
+      <!-- Table -->
+      <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+          <div class="card bg-secondary shadow border-0">
+            <div class="card-header bg-transparent pb-5">
+              <div class="text-muted text-center mt-2 mb-4"><small>Sign up with</small></div>
+              <div class="text-center">
+                <a href="#" class="btn btn-neutral btn-icon mr-4">
+                  <span class="btn-inner--icon"><img src="../static/img/icons/facebook.svg"></span>
+                  <span class="btn-inner--text">Facebook</span>
+                </a>
+                <a href="#" class="btn btn-neutral btn-icon">
+                  <span class="btn-inner--icon"><img src="../static/img/icons/google.svg"></span>
+                  <span class="btn-inner--text">Google</span>
+                </a>
+              </div>
+            </div>
+            <div class="card-body px-lg-5 py-lg-5">
+              <div class="text-center text-muted mb-4">
+                <small>Or sign up with credentials</small>
+              </div>
+              <form role="form" action="register" method="POST">
+
+                  <div class="form-group">
+                    <label for="username">Имя*</label>
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input class="form-control" name="firstname" placeholder="" type="text" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="username">Фамилия*</label>
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input class="form-control" name="lastname" placeholder="" type="text" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="username">Номер телефона*</label>
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input class="form-control" name="phone" placeholder="" type="text" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="username">Количество работников(число)</label>
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
+                    </div>
+                    <input class="form-control" name="workers_nameber" placeholder="5" type="text" required>
+                  </div>
+
+
+
+
+
+
+                  <div class="form-group">
+                    <label for="username">Специфика работы*</label>
+                    <select class="custom-select d-block w-100" id="country" required="">
+                        <option value="">Выберите...</option>
+                        <option>Исполнитель</option>
+                    </select>
+                      <div class="invalid-feedback">
+                            Please select a valid country.
+                      </div>
+                      </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="username">Город</label>
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" name="city" placeholder="Москва" type="email" required>
+                  </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="username">Логин*</label>
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i></span>
+                    </div>
+                    <input class="form-control" name="username" placeholder="Придумайте логин" type="username" required>
+                      <div class="invalid-feedback">
+                            Please select a valid country.
+                      </div>
+                  </div>
+
+                <div class="form-group">
+                    <label for="username">Почта*</label>
+                  <div class="input-group input-group-alternative mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-email-83"></i>@</span>
+                    </div>
+                    <input class="form-control" name="email" placeholder="you@example.com" type="email" required>
+                      <div class="invalid-feedback">
+                            Please select a valid country.
+                      </div>
+                  </div>
+                  
+                </div>
+                <div class="form-group">
+                    <label for="username">Пароль*</label>
+                  <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                    </div>
+                    <input class="form-control" name="password" placeholder="Придумайте пароль" type="password" required>
+                  </div>
+                  
+                </div>
+                <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div>
+                <div class="row my-4">
+                  <div class="col-12">
+                    <div class="custom-control custom-control-alternative custom-checkbox">
+                      <input class="custom-control-input" id="customCheckRegister" type="checkbox" required>
+                      <label class="custom-control-label" for="customCheckRegister">
+                        <span class="text-muted">I agree with the <a href="#!">Privacy Policy</a></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="text-center">
+                  <button class="btn btn-primary mt-4">Create account</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include scripts -->
+  <!-- Argon Scripts -->
+<!-- Core -->
+{#<script src="vendor/jquery/dist/jquery.min.js"></script>#}
+{#<script src="vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>#}
+{#<!-- Docs JS -->#}
+{#<script src="vendor/anchor-js/anchor.min.js"></script>#}
+{#<script src="vendor/clipboard/dist/clipboard.min.js"></script>#}
+{#<script src="vendor/holderjs/holder.min.js"></script>#}
+{#<script src="vendor/prismjs/prism.js"></script>#}
+{#<!-- Optional JS -->#}
+{#<script src="vendor/chart.js/dist/Chart.min.js"></script>#}
+{#<script src="vendor/chart.js/dist/Chart.extension.js"></script>#}
+{#<script src="vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>#}
+{#<!-- Argon JS -->#}
+{#<script src="js/argon.min.js?v=1.0.0"></script>#}
+{#<script>#}
+{#  $(document).ready(function() {#}
+{#    var _gaq = _gaq || [];#}
+{#    _gaq.push(['_setAccount', 'UA-46172202-1']);#}
+{#    _gaq.push(['_trackPageview']);#}
+{#    (function() {#}
+{#      var ga = document.createElement('script');#}
+{#      ga.type = 'text/javascript';#}
+{#      ga.async = true;#}
+{#      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';#}
+{#      var s = document.getElementsByTagName('script')[0];#}
+{#      s.parentNode.insertBefore(ga, s);#}
+{#    })();#}
+{#    // Facebook Pixel Code Don't Delete#}
+{#    ! function(f, b, e, v, n, t, s) {#}
+{#      if (f.fbq) return;#}
+{#      n = f.fbq = function() {#}
+{#        n.callMethod ?#}
+{#          n.callMethod.apply(n, arguments) : n.queue.push(arguments)#}
+{#      };#}
+{#      if (!f._fbq) f._fbq = n;#}
+{#      n.push = n;#}
+{#      n.loaded = !0;#}
+{#      n.version = '2.0';#}
+{#      n.queue = [];#}
+{#      t = b.createElement(e);#}
+{#      t.async = !0;#}
+{#      t.src = v;#}
+{#      s = b.getElementsByTagName(e)[0];#}
+{#      s.parentNode.insertBefore(t, s)#}
+{#    }(window,#}
+{#      document, 'script', '//connect.facebook.net/en_US/fbevents.js');#}
+{#    try {#}
+{#      fbq('init', '111649226022273');#}
+{#      fbq('track', "PageView");#}
+{#    } catch (err) {#}
+{#      console.log('Facebook Track Error:', err);#}
+{#    }#}
+{#  });#}
+{#</script>#}
+{#<noscript>#}
+{#  <img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=111649226022273&ev=PageView&noscript=1" />#}
+{#</noscript>#}
+
+</body>
+
+</html>
