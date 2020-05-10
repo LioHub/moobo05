@@ -1,0 +1,212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+{#    <script src="fancjs.js"></script>#}
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+{#    <!--подкючаем jquery-->#}
+{#    <script type="text/javascript" src="fancybox/jquery.min.js"></script>#}
+{##}
+{#<!--подкючаем fancybox-->#}
+{#    <link rel="stylesheet" type="text/css" media="all" href="fancybox/jquery.fancybox.css">#}
+{#    <script type="text/javascript" src="fancybox/jquery.fancybox.js"></script>#}
+
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        #feedback {display:none;}
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    .imglist {
+      background: #eee;
+      padding: 20px;
+    }
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .logout {
+            color: white;
+        }
+      .logout:hover{
+          color: black;
+          text-decoration: none;
+      }
+
+      a {
+            text-decoration: none;
+            color: #de2e2e;
+            background-color: transparent;
+
+      }
+      {#a::after{#}
+      {#    color: black;#}
+      {#    text-decoration: none;#}
+
+    </style>
+
+    <script type="text/javascript">
+            $(document).ready(function(){
+                $(".modalbox").fancybox();
+                $("#f_contact").submit(function(){ return false; });
+                $("#f_send").on("click", function(){
+
+                    // тут дальнейшие действия по обработке формы
+                    // закрываем окно, как правило делать это нужно после обработки данных
+                    $("#f_contact").fadeOut("fast", function(){
+                        var formData = new FormData(document.forms.contact);
+                        var xhr = new XMLHttpRequest();
+                        xhr.open('POST', 'newproject', true);
+                        xhr.send(formData);
+                            xhr.onreadystatechange = function() { // Ждём ответа от сервера
+                        if (xhr.readyState == 4) { // Ответ пришёл
+                        if(xhr.status == 200) { // Сервер вернул код 200 (что хорошо)
+                            console.log(xhr);
+                            window.location.href = xhr.responseURL;
+                          {#document.getElementById("summa").innerHTML = xhr.responseText; // Выводим ответ сервера#}
+                            $(this).before("<p><strong>Ваше сообщение отправлено!</strong></p>");
+                            setTimeout("$.fancybox.close()", 1000);
+                        }
+                      }
+                    };
+
+                    });
+                });
+            });
+    </script>
+
+  </head>
+  <body>
+    <header>
+  <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between">
+      <a href="#" class="navbar-brand d-flex align-items-center">
+        <svg xmlns="" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <strong>MOOBO</strong>
+      </a>
+      <a href="{% url 'designer-sign-out' %}" class="logout">Выход
+{#          <button type="button" class="btn btn-sm btn-outline-secondary">Выйти</button>#}
+      </a>
+
+     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>-->
+    </div>
+  </div>
+</header>
+
+<main role="main">
+<!--
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1>Album example</h1>
+      <p class="lead text-muted">Something short and leading about the collection below�its contents, the creator, etc. Make it short and sweet, but not too short so folks don�t simply skip over it entirely.</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2">Main call to action</a>
+        <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+      </p>
+    </div>
+  </section> -->
+
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+          {% csrf_token %}
+            <div class="col-sm-12 col-md-12">
+                <div class="row">
+                  <div class="col-md-4">
+                       <div class="card mb-4 shadow-sm btn btn-sm btn-outline-secondary">
+    {#          <button type="button" class="btn btn-sm btn-outline-secondary">#}
+                      <a href="#feedback" class="text-light modalbox" rel="nofollow">
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"
+                                 role="img" aria-label="Placeholder: Создать проект"><title>Создать</title>
+                                <rect width="100%" height="100%" fill="#3E52D5"/>
+                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Создать проект</text></svg>
+                      </a>
+    {#              <a href="#feedback" rel="nofollow" class="modalbox">Обратная связь</a>#}
+    {#                  </button>#}
+                  <div class="card-body">
+                  <p class="card-text">Создать проект</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                  </div>
+                </div>
+              </div>
+                    </div>
+                  {% for project in all_project %}
+                      <div class="col-md-4">
+                        <div class="card mb-4 shadow-sm btn-outline-secondary">
+                          <button type="button" class="btn btn-sm btn-outline-secondary" >
+                              <a href="/designer/statement/{{ project.name }}" class="text-light">
+                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
+                                         xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
+                                         focusable="false" role="img" aria-label="Placeholder: Создать проект">
+                                        <title>Открыть</title><rect width="100%" height="100%" fill="#55595c"/>
+                                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Проект {{ project.name }}</text></svg>
+                              </a>
+                          </button>
+    {#                        #}
+    {#                                                <td> <button type="submit">#}
+    {#                            <a href="/designer/statement/{{ ment.id }}">Удалить</a>#}
+    {#                        </button></td>#}
+                      <div class="card-body">
+                          <p class="card-text">Проект - {{ project.name }}</p>
+                          <div class="d-flex justify-content-between align-items-center">
+                          </div>
+                      </div>
+                          </div>
+                        </div>
+                  {% endfor %}
+                </div>
+            </div>
+{#            <div class="col-sm-12 col-md-6">#}
+{#                <div class="row">#}
+{##}
+{#                </div>#}
+{##}
+{#            </div>#}
+      </div>
+    </div>
+
+      <div id="feedback"><!-- hidden inline form -->
+          <h2>Создание нового проекта</h2>
+          <form id="f_contact" name="contact" action="#" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+{#                        <label for="f_name">Ваше имя</label><br>#}
+{#                        <input type="text" id="f_name" name="f_name"><br>#}
+{#                        <label for="f_email">Ваш E-mail</label><br>#}
+{#                        <input type="text" id="f_email" name="f_email"><br>#}
+{#                        <label for="f_msg">Введите сообщение</label><br>#}
+{#                        <textarea id="f_msg" name="f_msg" class="txtarea"></textarea>#}
+{#                        <button id="f_send">Отправить E-mail</button>#}
+                                <div class="mb-3">
+                                  <label for="name">Название проекта</label>
+                                  <input type="text" class="form-control" id="name" name="name" placeholder="Введите название проекта" required>
+                                  <div class="invalid-feedback">
+                                    Введите название проекта
+                                  </div>
+                                </div>
+                                <button class="btn btn-primary btn-lg btn-block" id="f_send" type="submit">Продолжить</button>
+                    </form>
+      </div>
+   </div>
+    </main>
+    </body>
+</html>

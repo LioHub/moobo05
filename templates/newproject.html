@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .logout {
+            color: white;
+        }
+
+              .logout:hover{
+          color: black;
+          text-decoration: none;
+      }
+
+      {#a {#}
+      {#      text-decoration: none;#}
+      {#      color: #de2e2e;#}
+      {#      background-color: transparent;#}
+      {##}
+      {#}#}
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="../static/css/newproject.css" rel="stylesheet">
+  </head>
+
+<body class="bg-light">
+
+ <header>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between">
+      <a href="/" class="navbar-brand d-flex align-items-center">
+        <svg xmlns="" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <strong>MOOBO</strong>
+      </a>
+      <a href="{% url 'designer-sign-out' %}" class="logout">Выход
+{#          <button type="button" class="btn btn-sm btn-outline-secondary">Выйти</button>#}
+      </a>
+
+     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>-->
+    </div>
+  </div>
+ </header>
+
+ <div class="container fm">
+  <div class="row cn">
+    <div class="col-md-8 order-md-1">
+      <h4 class="mb-3">Проект</h4>
+      <form class="needs-validation" method="POST">
+          {% csrf_token %}
+{#          {{  }}#}
+{#          {{ project_form.user }}#}
+
+        <div class="mb-3">
+          <label for="name">Название проекта</label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Введите название проекта" required>
+          <div class="invalid-feedback">
+            Введите название проекта
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="location">Адрес</label>
+          <input type="text" class="form-control" id="location" name="location" placeholder="г. Москва" required>
+          <div class="invalid-feedback">
+            Please enter your shipping address.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="name_of_customer">Имя заказчика</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="name_of_customer" name="name_of_customer" placeholder="" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your customer's name is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="email_of_customer">Почта заказчика</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">@</span>
+            </div>
+              <input type="email" class="form-control" id="email_of_customer" name="email_of_customer"
+                     placeholder="you@example.com" required>
+            <div class="invalid-feedback" style="width: 100%;">
+              Your username is required.
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="number_of_customer">Номер заказчика<span class="text-muted">(Optional)</span></label>
+          <input type="text" class="form-control" id="number_of_customer" name="number_of_customer" placeholder="">
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="price_of_project">Цена проекта</label>
+          <input type="text" class="form-control" id="price_of_project" name="price_of_project" placeholder="0">
+          <div class="invalid-feedback">
+            Please enter a valid email address for shipping updates.
+          </div>
+        </div>
+
+
+{#        <hr class="mb-4">#}
+        <button class="btn btn-primary btn-lg btn-block" type="submit">Продолжить</button>
+{#                  <a href="statement" class="text-light">Продолжить</a>#}
+
+{#          <a class="btn btn-primary" href="statement" role="button">Продолжить</a>#}
+      </form>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

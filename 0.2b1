@@ -1,0 +1,14 @@
+Requirement already satisfied: xhtml2pdf in d:\programs\python38-32\lib\site-packages (0.2.4)
+Requirement already satisfied: html5lib>=1.0 in d:\programs\python38-32\lib\site-packages (from xhtml2pdf) (1.0.1)
+Requirement already satisfied: pyPdf2 in d:\programs\python38-32\lib\site-packages (from xhtml2pdf) (1.26.0)
+Requirement already satisfied: Pillow in d:\programs\python38-32\lib\site-packages (from xhtml2pdf) (7.1.1)
+Requirement already satisfied: reportlab>=3.0 in d:\programs\python38-32\lib\site-packages (from xhtml2pdf) (3.5.42)
+Requirement already satisfied: six in d:\programs\python38-32\lib\site-packages (from xhtml2pdf) (1.13.0)
+Requirement already satisfied: webencodings in d:\programs\python38-32\lib\site-packages (from html5lib>=1.0->xhtml2pdf) (0.5.1)
+Could not build wheels for xhtml2pdf, since package 'wheel' is not installed.
+Could not build wheels for html5lib, since package 'wheel' is not installed.
+Could not build wheels for pyPdf2, since package 'wheel' is not installed.
+Could not build wheels for Pillow, since package 'wheel' is not installed.
+Could not build wheels for reportlab, since package 'wheel' is not installed.
+Could not build wheels for six, since package 'wheel' is not installed.
+Could not build wheels for webencodings, since package 'wheel' is not installed.

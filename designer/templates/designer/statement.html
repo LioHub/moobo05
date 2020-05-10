@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <style>
+        td, th {
+          text-align: left!important;
+          padding: 8px!important;
+          width: 100%!important;
+          white-space: nowrap!important;
+        }
+
+        tr:nth-child(0) {
+          background-color: #dddddd;
+        }
+        th {
+          background-color: #dddddd;
+          width: inherit!important;
+        }
+        table {
+            border-collapse: inherit;
+        }
+
+        td img {
+            width: 25%;
+        }
+
+        .logout {
+            color: white;
+        }
+
+        .logout:hover{
+          color: black;
+          text-decoration: none;
+      }
+    </style>
+
+</head>
+<body>
+ <header>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container d-flex justify-content-between">
+      <a href="/designer/projects" class="navbar-brand d-flex align-items-center">
+        <svg xmlns="" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <strong>MOOBO</strong>/коворкинг
+      </a>
+        {% csrf_token %}
+        <div class="" style="color: white">
+            <strong>Бюджет: </strong>0 руб.
+        </div>
+      <a href="{% url 'designer-sign-out' %}" class="logout">Выйти
+{#          <button type="button" class="btn btn-sm btn-outline-secondary">Выйти</button>#}
+      </a>
+     <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>-->
+    </div>
+  </div>
+ </header>
+
+<div class="table-responsive low">
+    <form method="POST" enctype="multipart/form-data">
+        <table class="table table-bordered">
+            {% csrf_token %}
+            <thead>
+                <tr>
+                  <th scope="col"></th>
+{#                  <th scope="col">Проект</th>#}
+                  <th scope="col">Название комнаты</th>
+                  <th scope="col">Фото</th>
+                  <th scope="col">Имя продукта</th>
+                  <th scope="col">Ссылка на товар</th>
+                  <th scope="col">Цена постащика(БЕЗ СКИДКИ!)</th>
+                  <th scope="col">Количество</th>
+                  <th scope="col">Общая сумма позиции</th>
+                  <th scope="col">3dmax(файл)</th>
+                  <th scope="col">Revit(файл)</th>
+                  <th scope="col">Техническая инструкция(файл)</th>
+                </tr>
+            </thead>
+            <tbody class="table-hover">
+                {% for ment in statement %}
+                    <tr>
+                        <td> <button type="submit">
+                            <a href="/designer/statement/{{ ment.id }}">Удалить</a>
+                        </button></td>
+{#                        <td> {{ ment.project }} </td>#}
+                        <td> {{ ment.room }} </td>
+                        {% if ment.images %}
+                                <td><img src="{{ment.images.url}}"></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        <td> <p>{{ ment.product_name }}</p> </td>
+                        <td> {{ ment.link }} </td>
+                        <td> {{ ment.retail_price }} </td>
+                        <td> {{ ment.qty }} </td>
+                        <td> {{ ment.total_client_price }} </td>
+                        {% if ment.file_3dmax %}
+                                <td><a href="/media/{{ment.file_3dmax}}" download>Скачать</a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if ment.file_revit %}
+                                <td><a href="/media/{{ ment.file_revit }}" download>Скачать</a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if ment.file_technical_instruction %}
+                                <td><a href="/media/{{ ment.file_technical_instruction }}" download>Скачать
+                                    <img src="{{ ment.file_technical_instruction }}">
+                                </a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+                <tr>
+                  <td><button type="submit">Сохранить
+{#                      <a href="/designer/statement/">Сохранить</a>#}
+{#                  <td scope="col">{{ statement_form.project }}</td>#}
+                  <td scope="col">{{ statement_form.room }}</td>
+                  <td scope="col">{{ statement_form.images }}</td>
+                  <td scope="col">{{ statement_form.product_name }}</td>
+                  <td scope="col">{{ statement_form.link }}</td>
+                  <td scope="col">{{ statement_form.retail_price }}</td>
+                  <td scope="col">{{ statement_form.qty }}</td>
+                  <td scope="col">{{ statement_form.total_client_price }}</td>
+                  <td scope="col">{{ statement_form.file_3dmax }}</td>
+                  <td scope="col">{{ statement_form.file_revit }}</td>
+                  <td scope="col">{{ statement_form.file_technical_instruction }}</td>
+                </tr>
+            </tbody>
+            </table>
+        </form>
+    </div>
+</body>
+</html>
