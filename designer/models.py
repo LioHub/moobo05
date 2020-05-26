@@ -1,3 +1,5 @@
+# /usr/bin/python
+# -*- coding: utf-8 -*-
 from django.db import models
 # from django.contrib.auth.models import AbstractUser, BaseUserManager
 # from django.utils.translation import ugettext_lazy as _
@@ -143,7 +145,7 @@ class Statement(models.Model):
 	# application_room = models.CharField(
 	# 	max_length=25, choices=APPLICATION_CHOICES+ROOM_CHOICES,
 	# 	verbose_name='Комнаты', default='')
-	link = models.URLField(max_length=1000, verbose_name='Ссылка на товар', default='', blank=True)
+	link = models.URLField(max_length=2000, verbose_name='Ссылка на товар', default='', blank=True)
 	# model = models.CharField(max_length=20, verbose_name='Модель/Артикул', default='', blank=True)
 	unit = models.CharField(max_length=100, verbose_name='Единица измерения', default='', blank=True)
 	retail_price = models.IntegerField(verbose_name='Цена постащика(БЕЗ СКИДКИ!)', default=0)

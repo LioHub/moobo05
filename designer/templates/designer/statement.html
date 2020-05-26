@@ -52,7 +52,10 @@
       </a>
         {% csrf_token %}
         <div class="" style="color: white">
-            <strong>Бюджет: </strong>0 руб.
+            <strong>Бюджет: </strong>{{ total_money }} руб.
+        </div>
+        <div class="" style="color: white">
+            <a href="pdf" style="color:#ffffff;">Скачать PDF</a>
         </div>
       <a href="{% url 'designer-sign-out' %}" class="logout">Выйти
 {#          <button type="button" class="btn btn-sm btn-outline-secondary">Выйти</button>#}
@@ -66,7 +69,7 @@
 
 <div class="table-responsive low">
     <form method="POST" enctype="multipart/form-data">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-hover">
             {% csrf_token %}
             <thead>
                 <tr>
@@ -76,6 +79,7 @@
                   <th scope="col">Фото</th>
                   <th scope="col">Имя продукта</th>
                   <th scope="col">Ссылка на товар</th>
+                  <th scope="col">Единица измерения(Валюта)</th>
                   <th scope="col">Цена постащика(БЕЗ СКИДКИ!)</th>
                   <th scope="col">Количество</th>
                   <th scope="col">Общая сумма позиции</th>
@@ -84,11 +88,11 @@
                   <th scope="col">Техническая инструкция(файл)</th>
                 </tr>
             </thead>
-            <tbody class="table-hover">
+            <tbody>
                 {% for ment in statement %}
                     <tr>
-                        <td> <button type="submit">
-                            <a href="/designer/statement/{{ ment.id }}">Удалить</a>
+                        <td><button type="submit">
+                            <a href="/designer/statement/{{ ment.project }}/{{ ment.id }}">Удалить</a>
                         </button></td>
 {#                        <td> {{ ment.project }} </td>#}
                         <td> {{ ment.room }} </td>
@@ -99,6 +103,7 @@
                         {% endif %}
                         <td> <p>{{ ment.product_name }}</p> </td>
                         <td> {{ ment.link }} </td>
+                        <td> {{ ment.unit }} </td>
                         <td> {{ ment.retail_price }} </td>
                         <td> {{ ment.qty }} </td>
                         <td> {{ ment.total_client_price }} </td>
@@ -129,6 +134,7 @@
                   <td scope="col">{{ statement_form.images }}</td>
                   <td scope="col">{{ statement_form.product_name }}</td>
                   <td scope="col">{{ statement_form.link }}</td>
+                  <td scope="col">{{ statement_form.unit }}</td>
                   <td scope="col">{{ statement_form.retail_price }}</td>
                   <td scope="col">{{ statement_form.qty }}</td>
                   <td scope="col">{{ statement_form.total_client_price }}</td>

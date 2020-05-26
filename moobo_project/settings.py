@@ -9,7 +9,8 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-
+# /usr/bin/python
+# -*- coding: utf-8 -*-
 import os
 # import dj_database_url
 # import django_heroku
@@ -21,8 +22,9 @@ BASE_DIR_DB = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPALTE_DIR = os.path.join(BASE_DIR, 'templates')
 STATICFILE_DIR = os.path.join(BASE_DIR, 'static')
 
-# print(BASE_DIR)
-
+# import sys
+# sys.reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -46,7 +48,10 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'designer',
-	'easy_pdf',
+	# 'easy_pdf',
+	# 'wkhtmltopdf'
+	# 'weasyprint'
+
 	# 'django_tables2 ',
 ]
 

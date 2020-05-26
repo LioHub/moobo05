@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+# /usr/bin/python
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.urls import path
 
@@ -28,13 +30,16 @@ urlpatterns = [
     path('designer/sign_in/', LoginView.as_view(template_name='designer/sign_in.html'), name='designer-sign-in'),
     path('designer/sign_out/', LogoutView.as_view(next_page='/'), name='designer-sign-out'),
     path('designer/', views.authapp_home, name='authapp-home'),
-    path('designer/projects', views.authapp_home, name='authapp-home'),
-    path('designer/sign_up', views.authapp_sign_up, name='sign-up'),
+    path('designer/projects/', views.authapp_home, name='authapp-home'),
+    path('designer/sign_up/', views.authapp_sign_up, name='sign-up'),
     path('designer/newproject', views.new_project, name='new-project'),
+    path('designer/projects/newproject', views.new_project, name='new-project'),
     # path('designer/statement', views.statement, name='project-statement'),
-    path('designer/statement/', views.statement, name='project-statement'),
-    path('designer/statement/<int:row>', views.delete_statement_row, name='delete-statement-row'),
-    path('designer/statement/<str:project_name>', views.get_project_statement, name='get-project-statement'),
+    path('designer/statement/<str:project_name>/', views.statement, name='project-statement'),
+    path('designer/statement/<str:project_name>/<int:row>/', views.delete_statement_row, name='delete-statement-row'),
+    # path('designer/statement/<str:project_name>/', views.get_project_statement, name='get-project-statement'),
+    path('designer/statement/<str:project_name>/pdf/', views.generate_pdf, name='get-statement-pdf'),
+    # path('designer/statement/<str:project_name>/pdf/', views.GeneratePDF.as_view(), name='get-statement-pdf'),
 
 
     # path('designer/', views.designer_home, name='designer-gome'),

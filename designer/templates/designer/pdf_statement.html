@@ -1,0 +1,196 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+    <head>
+        <title>Title</title>
+{#        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">#}
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+                color: #484848;
+
+
+                {#font-family: 'Open Sans', Arial, sans-serif!important;#}
+                text-align: left;
+                line-height: 1.5em;
+            }
+
+            {#@page {#}
+            {#    {% csrf_token %}#}
+            {#    size: {{ pagesize }};#}
+            {#    margin: 1cm;#}
+
+            {#p {#}
+            {#    color: red;#}
+            {#    font-family: 'Open Sans', Arial, sans-serif!important;#}
+
+
+            {#@font-face {#}
+            {#    font-family: 'Open Sans', sans-serif;#}
+            {#    src: url("/designer/static/fonts/OpenSans-Bold.ttf");  }#}
+            {#@font-face {#}
+            {#    font-family: 'Open Sans', sans-serif;#}
+            {#    src: url("/designer/static/fonts/OpenSans-BoldItalic.ttf");  }#}
+            @font-face {
+                font-family: 'Open Sans', sans-serif;
+                src: url("/designer/static/fonts/OpenSans-ExtraBold.ttf");  }
+            {#@font-face {#}
+            {#    font-family: 'Open Sans', sans-serif;#}
+            {#    src: url("/designer/static/fonts/OpenSans-ExtraBoldItalic.ttf");#}
+            {##}
+            {#@font-face {#}
+            {#    font-family: 'Open Sans', sans-serif;#}
+            {#    src: url("/designer/static/fonts/OpenSans-Italic.ttf");#}
+            {##}
+            {##}
+            {#@font-face {#}
+            {#    font-family: 'Open Sans', sans-serif;#}
+            {#    src: url("/designer/static/fonts/OpenSans-Light.ttf");#}
+            {##}
+            {##}
+            {#@font-face {#}
+            {#    font-family: 'Open Sans', sans-serif;#}
+            {#    src: url("/designer/static/fonts/OpenSans-LightItalic.ttf");#}
+            {##}
+            {##}
+            {#@font-face {#}
+            {#    font-family: 'Open Sans', sans-serif;#}
+            {#    src: url("/designer/static/fonts/OpenSans-Regular.ttf");#}
+            {##}
+            {##}
+            {#@font-face {#}
+            {#    font-family: 'Open Sans', sans-serif;#}
+            {#    src: url("/designer/static/fonts/OpenSans-SemiBold.ttf");#}
+            {##}
+            {##}
+            {#@font-face {#}
+            {#    font-family: 'Open Sans', sans-serif;#}
+            {#    src: url("/designer/static/fonts/OpenSans-SemiBoldItalic.ttf");#}
+
+        </style>
+        <style>
+        td, th {
+          text-align: left!important;
+          padding: 8px!important;
+          width: 100%!important;
+          white-space: normal!important;
+        }
+
+        tr:nth-child(0) {
+          background-color: #dddddd;
+        }
+        th {
+          background-color: #dddddd;
+          width: inherit!important;
+        }
+        table {
+            width: 100px;
+            border-collapse: inherit;
+        }
+
+        td img {
+            width: 100%;
+            font-size: 12px;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif !important;
+            font-size: 12px;
+        }
+    </style>
+    </head>
+
+    <body>
+        <table class="table table-bordered table-hover">
+            <thead>
+            {% csrf_token %}
+                <tr>
+                  <th scope="col">Room</th>
+                  <th scope="col">Image</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Link</th>
+                  <th scope="col">Unit</th>
+                  <th scope="col">Retail Price</th>
+                  <th scope="col">QTY</th>
+                  <th scope="col">Total Client Price</th>
+                  <th scope="col">3dmax(file)</th>
+                  <th scope="col">Revit(file)</th>
+                  <th scope="col">Technical Instruction(file)</th>
+                </tr>
+            </thead>
+            <tbody class="tab-hyphens">
+                {% csrf_token %}
+                {% for ment in project %}
+                    <tr>
+                        <td> {{ ment.room }} </td>
+                        {% if ment.images %}
+                                <td><img src="file:///d:/Projects/my work/moobo_project2/designer{{ ment.images.url }}"></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        <td> <p>{{ ment.product_name }}</p> </td>
+                        <td> <a href="{{ ment.link }}">Открыть</a> </td>
+                        <td> {{ ment.unit }} </td>
+                        <td> {{ ment.retail_price }} </td>
+                        <td> {{ ment.qty }} </td>
+                        <td> {{ ment.total_client_price }} </td>
+                        {% if ment.file_3dmax %}
+                                <td><a href="file:///d:/Projects/my work/moobo_project2/designer/media/{{ment.file_3dmax}}"
+                                       download>Скачать</a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if ment.file_revit %}
+                                <td><a href="file:///d:/Projects/my work/moobo_project2/designer/media/{{ ment.file_revit }}"
+                                       download>Скачать</a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                        {% if ment.file_technical_instruction %}
+                                <td><a href="file:///d:/Projects/my work/moobo_project2/designer/media/{{ ment.file_technical_instruction }}"
+                                       download>Скачать</a></td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+
+
+{#        <div class='wrapper'>#}
+{#            <div class='header'>#}
+{#                шрифт не задал#}
+{#                {% csrf_token %}#}
+{#                {% for foo in project %}#}
+{#                    {% if ment.images %}#}
+{#                        <td><img src="{{foo.images.url}}"></td>#}
+{#                    {% else %}#}
+{#                            <td></td>#}
+{#                    {% endif %}#}
+{##}
+{#                {% endfor %}#}
+{##}
+{#                <p class='title'>док # </p>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class='details'>#}
+{#            счет: <br/>#}
+{#            количество:  <br/>#}
+{#            дата:#}
+{#            <hr class='hrItem' />#}
+{#        </div>#}
+{##}
+{#    <div>#}
+{##}
+{#    </div>#}
+    </body>
+</html>
+

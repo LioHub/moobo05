@@ -6,7 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title></title>
-	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 {#	<link href="login.css" rel="stylesheet">#}
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
 
@@ -22,31 +23,64 @@
             background: #172B4D!important;
         }
 
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        {#            width: 100px;#}{#height: 100px;#}
+        }
+
+        .main_content{
+            padding-top: 15%;
+        }
+
     </style>
 </head>
 <body class="text-center">
-  <div class="header bg-gradient-primary py-7 py-lg-8">
-  <div class="container">
-    <div class="header-body text-center mb-7">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-6">
-          <h1 class="text-white">Ускоряем создание дизайн-проекта!</h1>
-          <p class="text-lead text-light">Мы создали сервис, который позволяет архитекторам, дизайнерам интерьера и прорабам ускорить свою работу.
-            Теперь не нужно все делать в Excel. moobo все сделает за тебя</p>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="main_content">
 
-</div>
+{#      <div class="header bg-gradient-primary py-7 py-lg-8">#}
+{#      <div class="container">#}
+{#        <div class="header-body text-center mb-7">#}
+{#          <div class="row justify-content-center">#}
+{#            <div class="col-lg-5 col-md-6">#}
+{#              <h1 class="text-white">Ускоряем создание дизайн-проекта!</h1>#}
+{#              <p class="text-lead text-light">Мы создали сервис, который позволяет архитекторам, дизайнерам интерьера и прорабам ускорить свою работу.#}
+{#                Теперь не нужно все делать в Excel. moobo все сделает за тебя</p>#}
+{#            </div>#}
+{#          </div>#}
+{#        </div>#}
+{#      </div>#}
+{##}
+{#    </div>#}
 
-  <div class="container mt--8 pb-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-5 col-md-7">
-          <div class="card bg-secondary shadow border-0">
-            <div class="card-header bg-transparent pb-5">
-              <div class="text-muted text-center mt-2 mb-3"><small>Войдите через свой профиль или зарегистрируйтесь</small></div>
-              <div class="btn-wrapper text-center">
+
+        <div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                <div class="header-body text-center mb-7">
+                    <div>
+                        <h1 class="text-white">Ускоряем создание дизайн-проекта!</h1>
+                        <p class="text-lead text-light">Мы создали сервис, который позволяет архитекторам, дизайнерам
+                            интерьера и прорабам ускорить свою работу.
+                            Теперь не нужно все делать в Excel. moobo все сделает за тебя</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-5 col-sm-12 ">
+                    <div class="card bg-secondary shadow border-0">
+                        <div class="card-body px-lg-5 py-lg-5">
+                            <div class="text-center text-muted mb-4">
+                                <small>Войдите через свой профиль или зарегистрируйтесь</small>
+                            </div>
+{#            <div class="container mt--8 pb-5">#}
+{#      <div class="row justify-content-center">#}
+{#        <div class="col-lg-5 col-md-7">#}
+{#          <div class="card bg-secondary shadow border-0">#}
+{#            <div class="card-header bg-transparent pb-5">#}
+{#              <div class="text-muted text-center mt-2 mb-3"><small>Войдите через свой профиль или зарегистрируйтесь</small></div>#}
+{#              <div class="btn-wrapper text-center">#}
 {#                <a href="#" class="btn btn-neutral btn-icon mr-4">#}
 {#                  <span class="btn-inner--icon"><img src="/static/img/icons/facebook.svg"></span>#}
 {#                  <span class="btn-inner--text">Facebook</span>#}
@@ -55,9 +89,9 @@
 {#                  <span class="btn-inner--icon"><img src="/static/img/icons/google.svg"></span>#}
 {#                  <span class="btn-inner--text">Google</span>#}
 {#                </a>#}
-              </div>
-            </div>
-            <div class="card-body px-lg-5 py-lg-5">
+{#              </div>#}
+{#            </div>#}
+{#            <div class="card-body px-lg-5 py-lg-5">#}
 {#               <div class="text-center text-muted mb-4">#}
 {#                <small>Вход</small>#}
 {#                <br>#}
@@ -66,7 +100,7 @@
 {#                </small>#}
 {#              </div>#}
 
-              <form method="POST">
+              <form role="form" method="POST">
                   {% csrf_token %}
 
 {#                  {{ form.as_p }}#}
@@ -131,6 +165,7 @@
         </div>
       </div>
     </div>
+
 <!--  {##}
 {#<footer class="py-5">#}
 {#  <div class="container">#}
@@ -165,5 +200,6 @@
 {#    </div>#}
 {#  </div>#}
 {#</footer>#} -->
+    </div>
 </body>
 </html>

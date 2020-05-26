@@ -210,3 +210,171 @@
     </main>
     </body>
 </html>
+
+
+{#<!DOCTYPE html>#}
+{#<html lang="ru">#}
+{#  <head>#}
+{#    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">#}
+{#      <meta charset="utf-8">#}
+{#    <title>ПДФ таблица</title>#}
+{#      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">#}
+{##}
+{#    <style type="text/css">#}
+{#      @page {#}
+{#        size: letter landscape;#}
+{#        border: 1px solid #999999;#}
+{#        margin: .4cm;#}
+{#      }#}
+{##}
+      {#@font-face {#}
+      {#  font-family: 'OpenSansRegular';#}
+      {#  src: url("/static/fonts/OpenSans/OpenSans-Regular.ttf");#}
+{##}
+{#      body {#}
+{#          font-family: 'Open Sans', sans-serif !important;#}
+{#          font-size: 16px;#}
+{#      }#}
+{#    </style>#}
+{#  </head>#}
+{#  <body>#}
+{#    <table class="table table-bordered">#}
+{#            <thead>#}
+{#            {% csrf_token %}#}
+{#                <tr>#}
+{#                  <th scope="col">Project name</th>#}
+{#                  <th scope="col">Room</th>#}
+{#                  <th scope="col">Image</th>#}
+{#                  <th scope="col">Product Name</th>#}
+{#                  <th scope="col">Link</th>#}
+{#                  <th scope="col">Retail Price</th>#}
+{#                  <th scope="col">QTY</th>#}
+{#                  <th scope="col">Total Client Price</th>#}
+{#                  <th scope="col">3dmax(file)</th>#}
+{#                  <th scope="col">Revit(file)</th>#}
+{#                  <th scope="col">Technical Instruction(file)</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody class="table-hover">#}
+{#                {% csrf_token %}#}
+{#                {% for ment in project %}#}
+{#                    <tr>#}
+{#                        <td> {{ ment.room }} </td>#}
+{#                        {% if ment.images %}#}
+{#                                <td><img src="{{ment.images.url}}"></td>#}
+{#                        {% else %}#}
+{#                            <td></td>#}
+{#                        {% endif %}#}
+{#                        <td> <p>{{ ment.product_name }}</p> </td>#}
+{#                        <td> {{ ment.link }} </td>#}
+{#                        <td> {{ ment.retail_price }} </td>#}
+{#                        <td> {{ ment.qty }} </td>#}
+{#                        <td> {{ ment.total_client_price }} </td>#}
+{#                        {% if ment.file_3dmax %}#}
+{#                                <td><a href="/media/{{ment.file_3dmax}}" download>Скачать</a></td>#}
+{#                        {% else %}#}
+{#                            <td></td>#}
+{#                        {% endif %}#}
+{#                        {% if ment.file_revit %}#}
+{#                                <td><a href="/media/{{ ment.file_revit }}" download>Скачать</a></td>#}
+{#                        {% else %}#}
+{#                            <td></td>#}
+{#                        {% endif %}#}
+{#                        {% if ment.file_technical_instruction %}#}
+{#                                <td><a href="/media/{{ ment.file_technical_instruction }}" download>Скачать#}
+{#                                    <img src="{{ ment.file_technical_instruction }}">#}
+{#                                </a></td>#}
+{#                        {% else %}#}
+{#                            <td></td>#}
+{#                        {% endif %}#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#            </table>#}
+{#  </body>#}
+{#</html>#}
+
+{#{% extends "easy_pdf/base.html" %}#}
+{##}
+{# <title>Test</title>  точно этот файл открывается? какая дичь вообще изменения не идут#}
+{#какие-то стили применяются .#}
+{##}
+{# {% block style_base %}#}
+{#     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>#}
+{#    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">#}
+{##}
+{#        {% block layout_style %}#}
+{#             <style type="text/css">#}
+{#        body {#}
+{#            font-family: 'Open Sans', sans-serif !important;#}
+{#          font-size: 16px;#}
+            {#font-family: "Шрифт вообще не подключается, даже когда он из  сети идет, не с твоих файлов Helvetica", "sans-serif";#}
+{#            color: #333333;#}
+{#        }#}
+{##}
+{#    </style>#}
+{#        {%endblock%}#}
+{#        {% block extra_style %}{% endblock %}#}
+{# {% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    <div id="content">#}
+{#        <div class="main">#}
+{#            <h1>Hi there!</h1>#}
+{#            <img src="/designer/static/img/hello.png" />#}
+{#        </div>#}
+{#    </div>#}
+{#    <table class="table table-bordered">#}
+{#            <thead>#}
+{#            {% csrf_token %}#}
+{#                <tr>#}
+{#                  <th scope="col">Project name</th>#}
+{#                  <th scope="col">Room</th>#}
+{#                  <th scope="col">Image</th>#}
+{#                  <th scope="col">Product Name</th>#}
+{#                  <th scope="col">Link</th>#}
+{#                  <th scope="col">Retail Price</th>#}
+{#                  <th scope="col">QTY</th>#}
+{#                  <th scope="col">Total Client Price</th>#}
+{#                  <th scope="col">3dmax(file)</th>#}
+{#                  <th scope="col">Revit(file)</th>#}
+{#                  <th scope="col">Technical Instruction(file)</th>#}
+{#                </tr>#}
+{#            </thead>#}
+{#            <tbody class="table-hover">#}
+{#                {% csrf_token %}#}
+{#                {% for ment in project %}#}
+{#                    <tr>#}
+{#                        <td> {{ ment.room }} </td>#}
+{#                        {% if ment.images %}#}
+{#                                <td><img src="{{ment.images.url}}"></td>#}
+{#                        {% else %}#}
+{#                            <td></td>#}
+{#                        {% endif %}#}
+{#                        <td> <p>{{ ment.product_name }}</p> </td>#}
+{#                        <td> {{ ment.link }} </td>#}
+{#                        <td> {{ ment.retail_price }} </td>#}
+{#                        <td> {{ ment.qty }} </td>#}
+{#                        <td> {{ ment.total_client_price }} </td>#}
+{#                        {% if ment.file_3dmax %}#}
+{#                                <td><a href="/media/{{ment.file_3dmax}}" download>Скачать</a></td>#}
+{#                        {% else %}#}
+{#                            <td></td>#}
+{#                        {% endif %}#}
+{#                        {% if ment.file_revit %}#}
+{#                                <td><a href="/media/{{ ment.file_revit }}" download>Скачать</a></td>#}
+{#                        {% else %}#}
+{#                            <td></td>#}
+{#                        {% endif %}#}
+{#                        {% if ment.file_technical_instruction %}#}
+{#                                <td><a href="/media/{{ ment.file_technical_instruction }}" download>Скачать#}
+{#                                    <img src="{{ ment.file_technical_instruction }}">#}
+{#                                </a></td>#}
+{#                        {% else %}#}
+{#                            <td></td>#}
+{#                        {% endif %}#}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#            </tbody>#}
+{#            </table>#}
+{#{% endblock %}#}
