@@ -73,7 +73,7 @@
                     $("#f_contact").fadeOut("fast", function(){
                         var formData = new FormData(document.forms.contact);
                         var xhr = new XMLHttpRequest();
-                        xhr.open('POST', 'newproject', true);
+                        xhr.open('POST', '/designer/projects/newproject', true);
                         xhr.send(formData);
                             xhr.onreadystatechange = function() { // Ждём ответа от сервера
                         if (xhr.readyState == 4) { // Ответ пришёл

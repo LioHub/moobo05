@@ -126,7 +126,7 @@ def statement(request, project_name):
 	print('method', request.method)
 	print('project_name', project_name)
 	if request.method == 'POST':
-		project_id = {'project': get_project_id(project_name)}
+		project_id = {'project': get_project_id(project_name, request.user)}
 		# print('project_id', project_id)
 		# project_id = {'project': project_id}
 		statement_data = request.POST.copy()
@@ -166,9 +166,9 @@ def statement(request, project_name):
 	return get_project_statement(request, project_name)
 
 
-def get_project_id(project_name):
+def get_project_id(project_name, user=None):
 	if type(project_name)==type("str"):
-		return Project.objects.get(name=project_name).id
+		return Project.objects.get(name=project_name, user=user).id
 	elif type(project_name)==type(1):
 		return project_name
 	return 'Error, nut such project name'
@@ -181,7 +181,8 @@ def get_project_statement(request, project_name):
 		# if type(project_name) == type("str"):
 		# 	project_id = Project.objects.get(name=project_name).id
 		# project = Statement.objects.filter(project=project_id)
-		project_id = get_project_id(project_name)
+
+		project_id = get_project_id(project_name, request.user)
 
 		project = Statement.objects.filter(project=project_id)
 
@@ -223,12 +224,12 @@ def delete_statement_row(request, project_name, row):
 
 # Функция для генерации пдф
 def generate_pdf(request, project_name):
-		project_id = get_project_id(project_name)
-		project = Statement.objects.filter(project=project_id)
+		project_id = get_project_id(project_name, request.user)
+		project = Statement.objects.filter(project=project_id, )
 		print('project', project)
-		print('project[0].images', project[0].images)
-		print('project[1].images', project[1].images)
-		print('project[2].images', project[2].images)
+		# print('project[0].images', project[0].images)
+		# print('project[1].images', project[1].images)
+		# print('project[2].images', project[2].images)
 		template = get_template('designer/pdf_statement.html')
 		html = template.render({'project': project})
 		options = {
