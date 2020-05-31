@@ -73,19 +73,19 @@
     <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Python" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Projects\my work\moobo_project2\designer\templates\designer" />
-      <recent name="D:\Projects\my work\moobo_project2\static\img\icons" />
-      <recent name="D:\Projects\my work\moobo_project2\static\img" />
-      <recent name="D:\Projects\my work\moobo_project2\static" />
-      <recent name="D:\Projects\my work\moobo_project\static\img\icons" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Projects\my work\moobo_project2\designer\static\img" />
       <recent name="D:\Projects\my work\moobo_project2\static\img" />
       <recent name="D:\Projects\my work\moobo_project2\designer\templates\designer" />
       <recent name="D:\Projects\my work\moobo_project2\designer" />
       <recent name="D:\Projects\my work\moobo_project2" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\my work\moobo_project2\designer\templates\designer" />
+      <recent name="D:\Projects\my work\moobo_project2\static\img\icons" />
+      <recent name="D:\Projects\my work\moobo_project2\static\img" />
+      <recent name="D:\Projects\my work\moobo_project2\static" />
+      <recent name="D:\Projects\my work\moobo_project\static\img\icons" />
     </key>
   </component>
   <component name="RunDashboard">
