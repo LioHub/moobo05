@@ -1,1 +1,1 @@
-web: gunicorn moobo_project.wsgi --log-file -
+web: gunicorn moobo05.wsgi --log-file -
