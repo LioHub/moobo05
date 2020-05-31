@@ -77,9 +77,14 @@
                     // закрываем окно, как правило делать это нужно после обработки данных
                     $("#f_contact").fadeOut("fast", function(){
                         var formData = new FormData(document.forms.contact);
+
+                        console.log(xhr);
+
                         var xhr = new XMLHttpRequest();
-                        xhr.open('POST', 'newproject/', true);
+                        xhr.open('POST', 'newproject', true);
                         xhr.send(formData);
+
+                        console.log(xhr);
 
                         xhr.onreadystatechange = function() { // Ждём ответа от сервера
                             if (xhr.readyState == 4) { // Ответ пришёл
