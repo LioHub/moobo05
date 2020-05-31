@@ -8,7 +8,8 @@ from django.contrib.auth.backends import ModelBackend
 
 from django.http import HttpResponse
 from django.template.loader import get_template
-import pdfkit
+import pdfkit, wkhtmltopdf
+
 # from Documents
 
 # from django.contrib.auth.models import User

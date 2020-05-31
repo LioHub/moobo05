@@ -48,8 +48,8 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'designer',
+	'wkhtmltopdf',
 	# 'easy_pdf',
-	# 'wkhtmltopdf'
 	# 'weasyprint'
 
 	# 'django_tables2 ',
