@@ -111,17 +111,17 @@
             <thead>
             {% csrf_token %}
                 <tr>
-                  <th scope="col">Room</th>
-                  <th scope="col">Image</th>
-                  <th scope="col">Product Name</th>
-                  <th scope="col">Link</th>
-                  <th scope="col">Unit</th>
-                  <th scope="col">Retail Price</th>
-                  <th scope="col">QTY</th>
-                  <th scope="col">Total Client Price</th>
-                  <th scope="col">3dmax(file)</th>
-                  <th scope="col">Revit(file)</th>
-                  <th scope="col">Technical Instruction(file)</th>
+                  <th scope="col">Наименование помещения</th>
+                  <th scope="col">Изображение</th>
+                  <th scope="col">Наименование</th>
+                  <th scope="col">Ссылка на товар(URL)</th>
+                  <th scope="col">Единицы измерения</th>
+                  <th scope="col">Стоимость</th>
+                  <th scope="col">Количество</th>
+                  <th scope="col">Общая сумма позиции</th>
+                  <th scope="col">3dmax(файл)</th>
+                  <th scope="col">Revit(файл)</th>
+                  <th scope="col">Техническая инструкция(файл)</th>
                 </tr>
             </thead>
             <tbody class="tab-hyphens">
@@ -130,7 +130,8 @@
                     <tr>
                         <td> {{ ment.room }} </td>
                         {% if ment.images %}
-                                <td><img src="file:///d:/Projects/my work/moobo_project2/designer{{ ment.images.url }}"></td>
+{#                                <td><img src="file:///d:/Projects/my work/moobo_project2/designer{{ ment.images.url }}"></td>#}
+                                <td><img src="https:///moobo.space/designer{{ ment.images.url }}"></td>
                         {% else %}
                             <td></td>
                         {% endif %}

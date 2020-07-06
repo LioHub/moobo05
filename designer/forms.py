@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django import forms
-# from authapp.models import PizzaShop
-# from .models import Profile
 from .models import Project, Statement
 
 

@@ -13,5 +13,11 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="psycopg2@188.93.210.197" uuid="06c5e5ad-1f2d-46c8-9443-75f06e3d5461">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="POSTGRES" exact-version="0" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>murad</user-name>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>

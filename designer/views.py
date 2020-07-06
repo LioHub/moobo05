@@ -8,12 +8,15 @@ from django.contrib.auth.backends import ModelBackend
 
 from django.http import HttpResponse
 from django.template.loader import get_template
-import pdfkit, wkhtmltopdf
+import pdfkit
 
-# from Documents
+from django.contrib.auth.views import LoginView
 
 # from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+
+from urllib.parse import unquote
+
 
 # Create your views here.
 def home(request):
@@ -27,13 +30,20 @@ def authapp_home(request):
 	return render(request, 'designer/projects.html', {'all_project': all_project})
 
 
+def login_in(request):
+	print(request.method)
+	print(request.POST)
+	return HttpResponse(LoginView.as_view(template_name='designer/sign_in.html'))
+
+
 # Регистрация/вход
 def authapp_sign_up(request):
 	user_form = UserForm()
-
+	# 'username', 'email'
 	if request.method == 'POST':
 		# profile_form = ProfileForm(request.POST, request.FILES)
-		username = {'username': str(request.POST.__getitem__('email'))}
+		username = {'username': str(request.POST.__getitem__('email')).lower(),
+		            'email': str(request.POST.__getitem__('email')).lower()}
 
 		response = request.POST.copy()
 		response.update(username)
@@ -64,6 +74,16 @@ def new_project(request):
 		user = {'user': str(request.user.pk)}
 		response = request.POST.copy()
 		response.update(user)
+
+		# print("response", response)
+		# print('response.__getitem__(name)', response.__getitem__('name'))
+		# name_project = {'name': response.__getitem__('name').encode('utf8')}
+		# response.pop('name')
+		# print("response", response)
+		# response.update(name_project)
+
+		# create_project.update({request.user.pk: response.__getitem__('name')})
+		# project_name = create_project.get(request.user.pk)
 
 		project_form = ProjectForm(response)
 
@@ -96,7 +116,7 @@ def exiting_project(user_id, project_name):
 	return project
 
 
-# get
+# Функция для входа на платформу через почту
 class EmailAuthBackend(ModelBackend):
 	def authenticate(self, request, username=None, password=None, **kwargs):
 		if '@' in username:
@@ -120,56 +140,57 @@ class EmailAuthBackend(ModelBackend):
 			return None
 
 
+# Функция для работы с таблицей ведомости
 def statement(request, project_name):
-	print('IN STATEMENT')
-	print('request.GET', request.GET)
-	print('request.POST', request.POST)
-	print('method', request.method)
-	print('project_name', project_name)
-	if request.method == 'POST':
-		project_id = {'project': get_project_id(project_name, request.user)}
-		# print('project_id', project_id)
-		# project_id = {'project': project_id}
-		statement_data = request.POST.copy()
-		# print('response statement_data', statement_data)
-		statement_data.update(project_id)
-		# print('new response statement_data', statement_data)
 
+	if request.method == 'POST':
+		statement_data = request.POST.copy()
+
+		# if request.FILES.getlist('images'):
+		# 	print(request.FILES.getlist('images')[0].name)
+		# 	print(type(request.FILES.getlist('images')[0].name))
+		# 	request.FILES.getlist('images')[0].name = str(request.FILES.getlist('images')[0].name).encode(
+		# 		'utf8').decode('utf8')
+		#
+		# if request.FILES.getlist('file_3dmax'):
+		# 	print(request.FILES.getlist('file_3dmax')[0].name)
+		# 	print(type(request.FILES.getlist('file_3dmax')[0].name))
+		# 	request.FILES.getlist('file_3dmax')[0].name = str(request.FILES.getlist('file_3dmax')[0].name).encode(
+		# 		'utf8').decode('utf8')
+		#
+		# if request.FILES.getlist('file_revit'):
+		# 	print(request.FILES.getlist('file_revit')[0].name)
+		# 	print(type(request.FILES.getlist('file_revit')[0].name))
+		# 	request.FILES.getlist('file_revit')[0].name = str(request.FILES.getlist('file_revit')[0].name).encode(
+		# 		'utf8').decode('utf8')
+		#
+		# if request.FILES.getlist('file_technical_instruction'):
+		# 	print(request.FILES.getlist('file_technical_instruction')[0].name)
+		# 	print(type(request.FILES.getlist('file_technical_instruction')[0].name))
+		# 	request.FILES.getlist('file_technical_instruction')[0].name = str(
+		# 		request.FILES.getlist('file_technical_instruction')[0].name).encode('utf8').decode('utf8')
+
+		total_client_price = int(statement_data.__getitem__('retail_price')) * int(statement_data.__getitem__('qty'))
+		project_id = {'project': get_project_id(project_name, request.user), 'total_client_price': total_client_price}
+
+		statement_data.update(project_id)
 		statement_form = StatementForm(statement_data, request.FILES)
-		# print('statement_form.is_valid()', statement_form.is_valid())
+
 		if statement_form.is_valid():
 			statement_form.save()
-			# print("statement_data.get('project')", statement_data.get('project'))
 
-		# print("statement_data.get('project')", statement_data.get('project'))
 		return get_project_statement(request, int(statement_data.get('project')))
-
-		#
-		# da = Statement.objects.all()
-		# statement_form = StatementForm()
-		# print('da', da)
-		# return render(request, 'designer/statement.html', {
-		#     'statement_form': statement_form,
-		#     'statement': da,
-		# })
-	# if request.method == 'GET':
-	#     print('GET', request.GET)
-	#     if row_id != None:
-	#         try:
-	#             Statement.objects.filter(id=row_id).delete()
-	#         except Exception as e:
-	#             print(e)
-	# print('im here, statement')
-	# statement_form = StatementForm()
-	# return render(request, 'designer/statement.html', {
-	# 				'statement_form': statement_form
-	# 			})
 	return get_project_statement(request, project_name)
 
 
+# Функция для проверки и получения id проекта
 def get_project_id(project_name, user=None):
 	if type(project_name)==type("str"):
-		return Project.objects.get(name=project_name, user=user).id
+		try:
+			# project_name = unquote(unquote(unquote(project_name)))
+			return Project.objects.get(name=project_name, user=user).id
+		except Exception as e:
+			return HttpResponse(e)
 	elif type(project_name)==type(1):
 		return project_name
 	return 'Error, nut such project name'
@@ -178,13 +199,7 @@ def get_project_id(project_name, user=None):
 # func to get the project statement)
 def get_project_statement(request, project_name):
 	try:
-		# project_id = project_name
-		# if type(project_name) == type("str"):
-		# 	project_id = Project.objects.get(name=project_name).id
-		# project = Statement.objects.filter(project=project_id)
-
 		project_id = get_project_id(project_name, request.user)
-
 		project = Statement.objects.filter(project=project_id)
 
 		total_money = 0
@@ -200,10 +215,6 @@ def get_project_statement(request, project_name):
 	except Exception as e:
 		print('e', e)
 		return redirect(authapp_home)
-		# statement_form = StatementForm()
-		# return render(request, 'designer/statement.html', {
-		#     'statement_form': statement_form
-		# })
 
 
 # fun for to del the statement row
@@ -216,8 +227,8 @@ def delete_statement_row(request, project_name, row):
 				Statement.objects.filter(id=row).delete()
 			except Exception as e:
 				print(e)
-		# return redirect(f'/designer/statement/{project_name}/')
-		return get_project_statement(request, project_name)
+		# return get_project_statement(request, project_name)
+		return redirect(f'/designer/statement/{project_name}')
 
 	if request.method == 'POST':
 		return statement(request, project_name)
@@ -226,13 +237,11 @@ def delete_statement_row(request, project_name, row):
 # Функция для генерации пдф
 def generate_pdf(request, project_name):
 		project_id = get_project_id(project_name, request.user)
-		project = Statement.objects.filter(project=project_id, )
-		print('project', project)
-		# print('project[0].images', project[0].images)
-		# print('project[1].images', project[1].images)
-		# print('project[2].images', project[2].images)
+		project = Statement.objects.filter(project=project_id)
 		template = get_template('designer/pdf_statement.html')
+
 		html = template.render({'project': project})
+		print('in generate_pdf html', html)
 		options = {
 		    'page-size': 'Letter',
 		    'margin-top': '0.75in',
@@ -248,10 +257,9 @@ def generate_pdf(request, project_name):
 
 		name = 'statement_pdf_1'
 		pdf = pdfkit.from_string(html, name, options=options)
-		print('pdf', pdf)
+		print('in generate_pdf  pdf', pdf)
 		with open(name, 'rb') as f:
 			pdf = f.read()
-			# return
 			response = HttpResponse(pdf, content_type='application/pdf')
 			response['Content-Disposition'] = 'attachment; filename=report.pdf'
 			# os.remove(name)

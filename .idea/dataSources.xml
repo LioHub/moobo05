@@ -10,5 +10,11 @@
         <property name="enable_load_extension" value="true" />
       </driver-properties>
     </data-source>
+    <data-source source="LOCAL" name="psycopg2@188.93.210.197" uuid="06c5e5ad-1f2d-46c8-9443-75f06e3d5461">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://188.93.210.197:5432/psycopg2</jdbc-url>
+    </data-source>
   </component>
 </project>

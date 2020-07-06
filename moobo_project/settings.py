@@ -22,21 +22,23 @@ BASE_DIR_DB = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPALTE_DIR = os.path.join(BASE_DIR, 'templates')
 STATICFILE_DIR = os.path.join(BASE_DIR, 'static')
 
-# import sys
-# sys.reload(sys)
-# sys.setdefaultencoding('utf-8')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'bly!mq_o(-lidt+j4g!e=x7szy@3q8s_p5@9jt@2z_6p*8xn#r'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['188.93.210.197', '0.0.0.0', '127.0.0.1', 'moobo.space', 'www.moobo.space', 'doll-cons.ru',
+#                  '2018.ip138.com', 'www.baidu.com', 'www.douban.com', 'm.weibo.cn', 'news.sogou.com',
+#                  'search.sina.com.cn', 'weixin.sogou.com', 'search.tianya.cn', 'www.toutiao.com',
+#                  'news.chinaso.com', '2018.ip138.com', 'fjrb.fjsen.com', 'news.66163.com',
+#                  '188-93-210-197.ovz.vps.regruhosting.ru']
 
 # Application definition
 
@@ -48,11 +50,6 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'designer',
-	'wkhtmltopdf',
-	# 'easy_pdf',
-	# 'weasyprint'
-
-	# 'django_tables2 ',
 ]
 
 MIDDLEWARE = [
@@ -63,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'moobo_project.urls'
@@ -94,8 +91,9 @@ WSGI_APPLICATION = 'moobo_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR_DB, 'db.sqlite3'),
+
+	    'ENGINE': 'django.db.backends.sqlite3',
+	    'NAME': os.path.join(BASE_DIR_DB, 'db.sqlite3'),
     }
 }
 
@@ -139,9 +137,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-import dj_database_url
-db_form_env = dj_database_url.config()
-DATABASES['default'].update(db_form_env)
+# import dj_database_url
+# db_form_env = dj_database_url.config()
+# DATABASES['default'].update(db_form_env)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -152,12 +150,15 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL = '/'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 #
-# AUTHENTICATION_BACKENDS = (
-#     'designer.views.EmailAuthBackend',
-#     'django.contrib.auth.backends.ModelBackend'
-#  )
+# import sys
+# sys.setdefaultencoding('utf-8')
+#
+# import os
+# os.putenv('LANG', 'en_US.UTF-8')
+# os.putenv('LC_ALL', 'en_US.UTF-8')
 
-# AUTH_USER_MODEL = 'designer.User'
+
+# SECURE_SSL_REDIRECT = False
+
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

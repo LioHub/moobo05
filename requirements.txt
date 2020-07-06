@@ -43,6 +43,6 @@ whitenoise==5.0.1
 xhtml2pdf
 django-easy-pdf==0.1.1
 django-wkhtmltopdf==3.3.0
-# wkhtmltopdf==0.2
+wkhtmltopdf==0.2
 # pdfkit==0.6.0
 django-pdfkit==0.3.1

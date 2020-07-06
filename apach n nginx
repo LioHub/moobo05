@@ -1,0 +1,157 @@
+<VirtualHost 188.93.210.197:80>
+	ServerName moobo.space
+	ServerAlias www.moobo.space
+	DocumentRoot /var/www/murad/data/www/moobo.space
+	ServerAdmin webmaster@moobo.space
+	DirectoryIndex index.php index.html
+	AddDefaultCharset UTF-8
+	SuexecUserGroup murad murad
+	CustomLog /var/www/httpd-logs/moobo.space.access.log combined
+	ErrorLog /var/www/httpd-logs/moobo.space.error.log
+	ScriptAlias /cgi-bin/ /var/www/murad/data/www/moobo.space/cgi-bin/
+	<FilesMatch "\.ph(p[3-5]?|tml)$">
+		SetHandler application/x-httpd-php
+	</FilesMatch>
+	<FilesMatch "\.phps$">
+		SetHandler application/x-httpd-php-source
+	</FilesMatch>
+	<IfModule php5_module>
+		php_admin_value sendmail_path "/usr/sbin/sendmail -t -i -f webmaster@moobo.space"
+		php_admin_value upload_tmp_dir "/var/www/murad/data/mod-tmp"
+		php_admin_value session.save_path "/var/www/murad/data/mod-tmp"
+		php_admin_value open_basedir "/var/www/murad/data:."
+	</IfModule>
+	<IfModule php7_module>
+		php_admin_value sendmail_path "/usr/sbin/sendmail -t -i -f webmaster@moobo.space"
+		php_admin_value upload_tmp_dir "/var/www/murad/data/mod-tmp"
+		php_admin_value session.save_path "/var/www/murad/data/mod-tmp"
+		php_admin_value open_basedir "/var/www/murad/data:."
+	</IfModule>
+</VirtualHost>
+<VirtualHost 188.93.210.197:443>
+	ServerName moobo.space
+	ServerAlias www.moobo.space
+	DocumentRoot /var/www/murad/data/www/moobo.space
+	ServerAdmin webmaster@moobo.space
+	DirectoryIndex index.php index.html
+	AddDefaultCharset UTF-8
+	SSLEngine on
+	SSLCertificateFile "/var/www/httpd-cert/murad/moobo.space_le1.crt"
+	SSLCertificateKeyFile "/var/www/httpd-cert/murad/moobo.space_le1.key"
+	SSLCertificateChainFile "/var/www/httpd-cert/murad/moobo.space_le1.ca"
+	SSLHonorCipherOrder on
+	SSLProtocol +TLSv1 +TLSv1.1 +TLSv1.2
+	SSLCipherSuite EECDH:+AES256:-3DES:RSA+AES:!NULL:!RC4
+	SuexecUserGroup murad murad
+	CustomLog /var/www/httpd-logs/moobo.space.access.log combined
+	ErrorLog /var/www/httpd-logs/moobo.space.error.log
+	ScriptAlias /cgi-bin/ /var/www/murad/data/www/moobo.space/cgi-bin/
+	<FilesMatch "\.ph(p[3-5]?|tml)$">
+		SetHandler application/x-httpd-php
+	</FilesMatch>
+	<FilesMatch "\.phps$">
+		SetHandler application/x-httpd-php-source
+	</FilesMatch>
+	<IfModule php5_module>
+		php_admin_value sendmail_path "/usr/sbin/sendmail -t -i -f webmaster@moobo.space"
+		php_admin_value upload_tmp_dir "/var/www/murad/data/mod-tmp"
+		php_admin_value session.save_path "/var/www/murad/data/mod-tmp"
+		php_admin_value open_basedir "/var/www/murad/data:."
+	</IfModule>
+	<IfModule php7_module>
+		php_admin_value sendmail_path "/usr/sbin/sendmail -t -i -f webmaster@moobo.space"
+		php_admin_value upload_tmp_dir "/var/www/murad/data/mod-tmp"
+		php_admin_value session.save_path "/var/www/murad/data/mod-tmp"
+		php_admin_value open_basedir "/var/www/murad/data:."
+	</IfModule>
+</VirtualHost>
+<Directory /var/www/murad/data/www/moobo.space>
+	Options +Includes +ExecCGI
+	<IfModule php5_module>
+		php_admin_flag engine on
+	</IfModule>
+	<IfModule php7_module>
+		php_admin_flag engine on
+	</IfModule>
+</Directory>
+
+
+
+==================================================
+                    nginx
+==================================================
+
+server {
+	server_name moobo.space www.moobo.space;
+	charset UTF-8;
+	index index.php index.html;
+	disable_symlinks if_not_owner from=$root_path;
+	include /etc/nginx/vhosts-includes/*.conf;
+	include /etc/nginx/vhosts-resources/moobo.space/*.conf;
+	access_log /var/www/httpd-logs/moobo.space.access.log;
+	error_log /var/www/httpd-logs/moobo.space.error.log notice;
+	ssi on;
+	set $root_path /var/www/murad/data/www/moobo.space;
+	root $root_path;
+	location / {
+		location ~ [^/]\.ph(p\d*|tml)$ {
+			try_files /does_not_exists @fallback;
+		}
+		location ~* ^.+\.(jpg|jpeg|gif|png|svg|js|css|mp3|ogg|mpe?g|avi|zip|gz|bz2?|rar|swf)$ {
+			try_files $uri $uri/ @fallback;
+		}
+		location / {
+			try_files /does_not_exists @fallback;
+		}
+	}
+	location @fallback {
+		proxy_pass http://127.0.0.1:8080;
+		proxy_redirect http://127.0.0.1:8080 /;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header X-Forwarded-Port $server_port;
+		access_log off;
+	}
+	listen 188.93.210.197:80 default_server;
+}
+server {
+	server_name moobo.space www.moobo.space;
+	ssl_certificate "/var/www/httpd-cert/murad/moobo.space_le1.crtca";
+	ssl_certificate_key "/var/www/httpd-cert/murad/moobo.space_le1.key";
+	ssl_ciphers EECDH:+AES256:-3DES:RSA+AES:!NULL:!RC4;
+	ssl_prefer_server_ciphers on;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+	ssl_dhparam /etc/ssl/certs/dhparam4096.pem;
+	charset UTF-8;
+	index index.php index.html;
+	disable_symlinks if_not_owner from=$root_path;
+	include /etc/nginx/vhosts-includes/*.conf;
+	include /etc/nginx/vhosts-resources/moobo.space/*.conf;
+	access_log /var/www/httpd-logs/moobo.space.access.log;
+	error_log /var/www/httpd-logs/moobo.space.error.log notice;
+	ssi on;
+	set $root_path /var/www/murad/data/www/moobo.space;
+	root $root_path;
+	location / {
+		location ~ [^/]\.ph(p\d*|tml)$ {
+			try_files /does_not_exists @fallback;
+		}
+		location ~* ^.+\.(jpg|jpeg|gif|png|svg|js|css|mp3|ogg|mpe?g|avi|zip|gz|bz2?|rar|swf)$ {
+			try_files $uri $uri/ @fallback;
+		}
+		location / {
+			try_files /does_not_exists @fallback;
+		}
+	}
+	location @fallback {
+		proxy_pass http://127.0.0.1:8080;
+		proxy_redirect http://127.0.0.1:8080 /;
+		proxy_set_header Host $host;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_set_header X-Forwarded-Port $server_port;
+		access_log off;
+	}
+	listen 188.93.210.197:443 ssl default_server;
+}
