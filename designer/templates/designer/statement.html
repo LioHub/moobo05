@@ -7,7 +7,6 @@
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title></title>
 	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
     <style>
         td, th {
           text-align: left!important;
@@ -22,13 +21,15 @@
         th {
           background-color: #dddddd;
           width: inherit!important;
+          text-align: center !important;
+          vertical-align: middle!important;
         }
         table {
             border-collapse: inherit;
         }
 
         td img {
-            width: 25%;
+            width: 75%;
         }
 
         .logout {
@@ -49,7 +50,69 @@
             width: 196px!important
         }
 
+        .colsize {
+            width: 100%!important;
+        }
+
+        select[name="room"] {
+            width: 100%!important;
+        }
+
+        input[name="images"] {
+            width: 129px;
+        }
+
+        input[name="product_name"] {
+            width: 200px;
+        }
+
+        input[name="link"] {
+            width: 196px;
+        }
+
+        input {
+            width: 129px;
+        }
+
+        .delbut {
+            text-align: center!important;
+            vertical-align: middle!important;
+
+        }
+
+        .butdel {
+            width: 25%;
+            vertical-align: middle!important;
+        }
+
+        .productname {
+            overflow: hidden;
+            width: 100px;
+            font-size: small;
+        }
+
+        .icons {
+            width: 17px;
+            vertical-align: middle!important;
+        }
+
+        .div_icons {
+            width: 100%!important;
+            vertical-align: middle!important;
+        }
+
+        .product_name {
+            width: 100%!important;
+            {#overflow: visible;#}
+            white-space: break-spaces;
+            {#overflow: visible!important;#}
+        }
+
+        {#.butside {#}
+        {#    width: 25%;}#}
+
     </style>
+
 
 </head>
 <body>
@@ -57,7 +120,10 @@
       <div class="navbar navbar-dark bg-dark shadow-sm">
     <div class="container d-flex justify-content-between">
       <a href="/designer/projects" class="navbar-brand d-flex align-items-center">
-        <svg xmlns="" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+        <svg xmlns="" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round"
+             stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24"
+             focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+            <circle cx="12" cy="13" r="4"/></svg>
         <strong>MOOBO</strong>/коворкинг
       </a>
         {% csrf_token %}
@@ -83,73 +149,89 @@
             {% csrf_token %}
             <thead>
                 <tr>
-                  <th scope="col"></th>
+                  <th class="butside" align="center" scope="col"></th>
 {#                  <th scope="col">Проект</th>#}
-                  <th scope="col">Наименование помещения</th>
-                  <th scope="col">Изображение</th>
-                  <th scope="col">Наименование</th>
-                  <th scope="col">Ссылка на товар(URL)</th>
-                  <th scope="col">Единицы измерения</th>
-                  <th scope="col">Стоимость</th>
-                  <th scope="col">Количество</th>
-                  <th scope="col">Общая сумма позиции</th>
-                  <th scope="col">3dmax(файл)</th>
-                  <th scope="col">Revit(файл)</th>
-                  <th scope="col">Техническая инструкция(файл)</th>
+                  <th align="center" scope="col">Наименование <br/> помещения</th>
+                  <th align="center" scope="col">Изображение</th>
+                  <th align="center" scope="col">Наименование</th>
+                  <th align="center" scope="col">Ссылка на товар(URL)</th>
+                  <th align="center" scope="col">Единицы <br/> измерения</th>
+                  <th align="center" scope="col">Стоимость</th>
+                  <th align="center" scope="col">Количество</th>
+                  <th align="center" scope="col">Итог</th>
+                  <th align="center" scope="col">3dmax</th>
+                  <th align="center" scope="col">Revit</th>
+                  <th align="center" scope="col">Техническая <br/> инструкция</th>
                 </tr>
             </thead>
             <tbody>
                 {% for ment in statement %}
                     <tr>
-                        <td><button type="submit">
-                            <a href="/designer/statement/{{ ment.project }}/{{ ment.id }}">Удалить</a>
-                        </button></td>
+                        <td class="delbut">
+{#                            <button class="butdel" type="submit">#}
+                            <div class="div_icons">
+                                <a class="butdel" href="/designer/statement/{{ ment.project }}/{{ ment.id }}">
+                                    <img class="icons" src="/static/img/icons/busket.png"/>
+                                </a>
+                            </div>
+{#                        </button>#}
+                        </td>
 {#                        <td> {{ ment.project }} </td>#}
-                        <td> {{ ment.room }} </td>
+                        <td class="colsize"> <div><a> {{ ment.room }} </a></div> </td>
                         {% if ment.images %}
-                                <td><img src="{{ment.images.url}}"></td>
+                                <td> <div><a> <img src="{{ment.images.url}}"></a></div> </td>
                         {% else %}
-                            <td></td>
+                            <td> <div><a></a></div> </td>
                         {% endif %}
-                        <td> <p>{{ ment.product_name }}</p> </td>
-                        <td> <div><a title="{{ ment.link }}" href="{{ ment.link }}">{{ ment.link }}</a></div></td>
-                        <td> {{ ment.unit }} </td>
-                        <td> {{ ment.retail_price }} </td>
-                        <td> {{ ment.qty }} </td>
-                        <td> {{ ment.total_client_price }} </td>
+                        <td class="productname"><div class="product_name"><a>{{ ment.product_name }}</a></div> </td>
+                        <td> <div><a title="{{ ment.link }}" href="{{ ment.link }}">{{ ment.link }}</a></div> </td>
+                        <td> <div><a> {{ ment.unit }} </a></div> </td>
+                        <td> <div><a> {{ ment.retail_price }} </a></div> </td>
+                        <td> <div><a> {{ ment.qty }} </a></div> </td>
+                        <td> <div><a> {{ ment.total_client_price }} </a></div> </td>
                         {% if ment.file_3dmax %}
-                                <td><a href="/designer/media/{{ment.file_3dmax}}" download>Скачать</a></td>
+                                <td> <div><a href="/media/{{ment.file_3dmax}}" download>Скачать</a></div> </td>
                         {% else %}
-                            <td></td>
+                            <td> <div><a></a></div> </td>
                         {% endif %}
                         {% if ment.file_revit %}
-                                <td><a href="/media/{{ ment.file_revit }}" download>Скачать</a></td>
+                                <td> <div><a href="/media/{{ ment.file_revit }}" download>Скачать</a></div> </td>
                         {% else %}
-                            <td></td>
+                            <td> <div><a></a></div> </td>
                         {% endif %}
                         {% if ment.file_technical_instruction %}
-                                <td><a href="/media/{{ ment.file_technical_instruction }}" download>Скачать</a></td>
+                                <td> <div><a href="/media/{{ ment.file_technical_instruction }}" download>Скачать</a></div> </td>
                         {% else %}
-                            <td></td>
+                            <td> <div><a></a></div> </td>
                         {% endif %}
                     </tr>
                 {% endfor %}
+                <div><a></a></div>
                 <tr>
-                  <td><button type="submit">Сохранить</button></td>
+                  <td>
+{#                      <button type="submit">#}
+                      <div class="div_icons">
+                          <a><button type="submit">
+{#                              <a href="/designer/statement/{{ project_name }}/"></a>#}
+                              <img class="icons" src="/static/img/icons/add-button2.png"/>
+
+                              </button></a>
+                      </div>
+{#                      </button>#}
+                  </td>
 
 {#                      <a href="/designer/statement/">Сохранить</a>#}
-{#                  <td scope="col">{{ statement_form.project }}</td>#}
-                  <td scope="col">{{ statement_form.room }}</td>
-                  <td scope="col">{{ statement_form.images }}</td>
-                  <td scope="col">{{ statement_form.product_name }}</td>
-                  <td scope="col">{{ statement_form.link }}</td>
-                  <td scope="col">{{ statement_form.unit }}</td>
-                  <td scope="col">{{ statement_form.retail_price }}</td>
-                  <td scope="col">{{ statement_form.qty }}</td>
-                  <td scope="col"></td>
-                  <td scope="col">{{ statement_form.file_3dmax }}</td>
-                  <td scope="col">{{ statement_form.file_revit }}</td>
-                  <td scope="col">{{ statement_form.file_technical_instruction }}</td>
+                  <td class="colsize" scope="col"> <div><a>{{ statement_form.room }}</a></div> </td>
+                  <td scope="col"> <div><a>{{ statement_form.images }}</a></div> </td>
+                  <td scope="col"> <div><a>{{ statement_form.product_name }}</a></div> </td>
+                  <td scope="col"> <div><a>{{ statement_form.link }}</a></div> </td>
+                  <td scope="col"> <div><a>{{ statement_form.unit }}</a></div> </td>
+                  <td scope="col"> <div><a>{{ statement_form.retail_price }}</a></div> </td>
+                  <td scope="col"> <div><a>{{ statement_form.qty }}</a></div> </td>
+                  <td scope="col"> <div><a></a></div> </td>
+                  <td scope="col"> <div><a>{{ statement_form.file_3dmax }}</a></div> </td>
+                  <td scope="col"> <div><a>{{ statement_form.file_revit }}</a></div> </td>
+                  <td scope="col"> <div><a>{{ statement_form.file_technical_instruction }}</a></div> </td>
                 </tr>
             </tbody>
             </table>
@@ -157,3 +239,54 @@
     </div>
 </body>
 </html>
+
+
+<script>
+    var tds = document.querySelectorAll('td > div > a');
+
+    for (var i = 0; i < (tds.length-12); i++) {
+        {#console.log(i);#}
+        {#console.log(i % 12 == 0);#}
+        if (i % 12 != 0) {
+            {#tds[i].>div#}
+            {#console.log(tds[i]);#}
+
+             {#console.log(tds[i].children[div]);#}
+            {#if (i==2) {#}
+            {#    console.log(tds[i].childNodes[img]);}#}
+             {#if (console.log(tds[i].childNodes.keys('div')))#}
+             {#{#}
+             {#    console.log(tds[i].childNodes.keys('div'));}#}
+
+           tds[i].addEventListener('click', function func() {
+               var input = document.createElement('input');
+               console.log('this.innerHTML', this.innerHTML);
+               console.log('this.childNodes.img', this.childNodes.img);
+               console.log('this.childNodes.values', this.childNodes.values);
+               console.log('this.childNodes.baseURI', this.childNodes.baseURI);
+               input.value = this.innerHTML;
+               this.innerHTML = '';
+               this.appendChild(input);
+
+               var td = this;
+
+               input.addEventListener('blur', function() {
+                   td.innerHTML = this.value;
+                   td.addEventListener('click', func);
+               });
+
+               this.removeEventListener('click', func);
+           });
+        }
+    }
+
+
+</script>
+
+{#        tds[i].addEventListener('click', function() {#}
+{#            var input = document.createElement('input');#}
+{#            console.log(i);#}
+{#            input.value = tds[i-1].innerHTML;#}
+{#            tds[i-1].appendChild();#}
+{##}
+{#            });#}

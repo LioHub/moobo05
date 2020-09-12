@@ -38,6 +38,15 @@
         .main_content{
             padding-top: 15%;
         }
+
+        .errors {
+            color: red;
+            border: 1px solid red; /* Белая рамка */
+            border-radius: 10px; /* Радиус скругления */
+            font-size: 12px;
+            {#display: inline-block;#}
+            {#background: #fc0; /* Цвет фона */#}
+        }
     </style>
 </head>
 
@@ -191,6 +200,12 @@
                                            type="password" required>
                                 </div>
                             </div>
+
+                            {% if error %}
+                                <div align="center" class="errors">
+                                    {{ error }}
+                                </div>
+                            {% endif %}
                             {#                <div class="text-muted font-italic"><small>password strength: <span class="text-success font-weight-700">strong</span></small></div>#}
                             {#                <div class="row my-4">#}
                             {#                  <div class="col-12">#}
@@ -209,6 +224,11 @@
                         </form>
                     </div>
                 </div>
+                      <div class="row mt-3">
+                            <div class="col-6 text-left-need">
+                              <a href="/designer/sign_in" class="text-light"><small>Авторизоваться</small></a>
+                            </div>
+                      </div>
             </div>
             {#       </div>#}
         </div>

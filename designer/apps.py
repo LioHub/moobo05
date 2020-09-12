@@ -246,3 +246,8 @@ s = 'TesT@gmail.ru'
 print(s)
 s = str(s).lower()
 print(s)
+
+
+print(0 % 12 == 0)
+
+print(dir(AppConfig))

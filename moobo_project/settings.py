@@ -27,6 +27,7 @@ STATICFILE_DIR = os.path.join(BASE_DIR, 'static')
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'bly!mq_o(-lidt+j4g!e=x7szy@3q8s_p5@9jt@2z_6p*8xn#r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,7 +91,11 @@ WSGI_APPLICATION = 'moobo_project.wsgi.application'
 
 DATABASES = {
     'default': {
-
+	    # 'ENGINE': 'django.db.backends.mysql',
+	    # 'NAME': 'u1068918_default',
+	    # 'USER': 'u1068918_default',
+	    # 'PASSWORD': 'B!4ea6Wj',
+	    # 'HOST': 'localhost',
 	    'ENGINE': 'django.db.backends.sqlite3',
 	    'NAME': os.path.join(BASE_DIR_DB, 'db.sqlite3'),
     }

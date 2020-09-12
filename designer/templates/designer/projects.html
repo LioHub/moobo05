@@ -61,6 +61,22 @@
             background-color: transparent;
 
       }
+
+      .del_project {
+          position: absolute!important;
+          top: 10px!important;
+          right: 10px!important;
+          display: inline-block!important;
+          width: 20px!important;
+          height: 20px!important;
+          background: url(/static/img/icons/busket.png) no-repeat !important;
+          z-index: 132!important;
+          color: red!important;
+      }
+
+      .svg_div {
+          position: relative!important;
+      }
       {#a::after{#}
       {#    color: black;#}
       {#    text-decoration: none;#}
@@ -168,14 +184,20 @@
                   {% for project in all_project %}
                       <div class="col-md-4">
                         <div class="card mb-4 shadow-sm btn-outline-secondary">
-                          <button type="button" class="btn btn-sm btn-outline-secondary" >
-                              <a href="/designer/statement/{{ project.name }}" class="text-light">
+                          <button type="button" class="btn btn-sm btn-outline-secondary svg_div" >
+                              <div class="svg_div">
+                                  <a class="del_project" href="/designer/projects/del/{{ project.name }}">
+                                      <img class="del_project" src="/static/img/icons/busket.png" alt="Удалить">
+                                  </a>
+                                  <a href="/designer/statement/{{ project.name }}" class="text-light">
                                     <svg class="bd-placeholder-img card-img-top" width="100%" height="225"
                                          xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice"
                                          focusable="false" role="img" aria-label="Placeholder: Создать проект">
                                         <title>Открыть</title><rect width="100%" height="100%" fill="#55595c"/>
-                                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Проект {{ project.name }}</text></svg>
-                              </a>
+                                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Проект {{ project.name }}</text>
+                                    </svg>
+                                  </a>
+                              </div>
                           </button>
     {#                        #}
     {#                                                <td> <button type="submit">#}

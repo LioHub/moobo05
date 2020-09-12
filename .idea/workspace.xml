@@ -53,17 +53,17 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/designer/static/img" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Projects\my work\moobo_project2\designer\static\img\icons" />
+      <recent name="D:\Projects\my work" />
       <recent name="D:\Projects\my work\moobo_project2\designer\static\img" />
       <recent name="D:\Projects\my work\moobo_project2\static\img" />
       <recent name="D:\Projects\my work\moobo_project2\designer\templates\designer" />
-      <recent name="D:\Projects\my work\moobo_project2\designer" />
-      <recent name="D:\Projects\my work\moobo_project2" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\my work\moobo_project2" />
@@ -290,7 +290,19 @@
       <workItem from="1592739660769" duration="42206000" />
       <workItem from="1593165911090" duration="617000" />
       <workItem from="1593169546280" duration="7339000" />
-      <workItem from="1594054106373" duration="409000" />
+      <workItem from="1594054106373" duration="18325000" />
+      <workItem from="1594224129548" duration="4324000" />
+      <workItem from="1594253730665" duration="5299000" />
+      <workItem from="1594320010881" duration="10509000" />
+      <workItem from="1594541232549" duration="2356000" />
+      <workItem from="1594826889524" duration="2588000" />
+      <workItem from="1595252954025" duration="1953000" />
+      <workItem from="1596107302690" duration="4676000" />
+      <workItem from="1596197803880" duration="21228000" />
+      <workItem from="1596744385372" duration="1799000" />
+      <workItem from="1596802101894" duration="688000" />
+      <workItem from="1598821342982" duration="652000" />
+      <workItem from="1599929600938" duration="232000" />
     </task>
     <servers />
   </component>
@@ -323,11 +335,6 @@
           <line>2</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>remoteDeploymentFS://&lt;7dcbb75a-9768-4d9d-9ec2-e4cfdb47afc0&gt;/www/moobo.space/moobo/moobo_project/settings.py</url>
-          <line>30</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
@@ -336,7 +343,7 @@
     <SUITE FILE_PATH="coverage/moobo_project$manage.coverage" NAME="manage Coverage Results" MODIFIED="1585472937893" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/moobo_project2$urls.coverage" NAME="urls Coverage Results" MODIFIED="1587254006476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/moobo_project" />
     <SUITE FILE_PATH="coverage/moobo_project$settings.coverage" NAME="settings Coverage Results" MODIFIED="1591547540929" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/moobo_project" />
-    <SUITE FILE_PATH="coverage/moobo_project$apps.coverage" NAME="apps Coverage Results" MODIFIED="1593181312624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/designer" />
+    <SUITE FILE_PATH="coverage/moobo_project$apps.coverage" NAME="apps Coverage Results" MODIFIED="1596211370963" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/designer" />
     <SUITE FILE_PATH="coverage/moobo_project$settings__1_.coverage" NAME="settings (1) Coverage Results" MODIFIED="1591546328294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="/" />
   </component>
 </project>

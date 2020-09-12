@@ -2,19 +2,18 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth import authenticate, login
 from designer.forms import UserForm, ProjectForm, StatementForm
 from .models import User, Project, Statement
-from django.contrib.auth.backends import ModelBackend
 
 from django.http import HttpResponse
 from django.template.loader import get_template
 import pdfkit
 
+from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.views import LoginView
-
 # from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
-
 from urllib.parse import unquote
 
 
@@ -23,45 +22,102 @@ def home(request):
 	return redirect(authapp_home)
 
 
-# вход
+# функция для перехода в началью страницу с декоратором проверки(авторизован ли пользователь или нет)
 @login_required(login_url='/designer/sign_in')
 def authapp_home(request):
 	all_project = Project.objects.filter(user=request.user.pk)
 	return render(request, 'designer/projects.html', {'all_project': all_project})
 
 
-def login_in(request):
-	print(request.method)
-	print(request.POST)
-	return HttpResponse(LoginView.as_view(template_name='designer/sign_in.html'))
+# Функция для входа на платформу через почту
+# class EmailAuthBackend(ModelBackend):
+# 	def authenticate(self, username=None, password=None, **kwargs):
+# 		if '@' in username:
+# 			kwargs = {'email': username}
+# 		else:
+# 			kwargs = {'username': username}
+#
+# 		try:
+# 			user = User.objects.get(**kwargs)
+# 			# print(user)
+# 			if user.check_password(password):
+# 				return user
+# 			else:
+# 				return None
+# 		except User.DoesNotExist:
+# 			return None
+#
+# 	def get_user(self, user_id):
+# 		try:
+# 			return User.objects.get(pk=user_id)
+# 		except User.DoesNotExist:
+# 			return None
 
 
-# Регистрация/вход
+# Перевод почты в нижний регистр и добавление username
+def adding_username(request):
+	username = {'username': str(request.POST.__getitem__('email')).lower(),
+	            'email': str(request.POST.__getitem__('email')).lower()}
+	response = request.POST.copy()
+	response.pop('email')
+	response.update(username)
+	return response
+
+
+# вход
+def user_login(request):
+	if request.method == 'POST':
+		response = adding_username(request)
+		user = authenticate(username=response['email'], password=response['password'])
+
+		if user is not None:
+			if user.is_active:
+				login(request, user)
+				return redirect(authapp_home)
+			else:
+				user_form = UserForm()
+				return render(request, 'designer/sign_in.html', {
+					'user_form': user_form,
+					'error': 'Такого пользователя нет'
+				})
+				# return HttpResponse('Disabled account')
+		else:
+			user_form = UserForm()
+			return render(request, 'designer/sign_in.html', {
+				'user_form': user_form,
+				'error': 'Введен неверный логин или пароль'
+			})
+			# return HttpResponse('Invalid login')
+
+	user_form = UserForm()
+	return render(request, 'designer/sign_in.html', {
+		'user_form': user_form,
+	})
+
+
+# Регистрация
 def authapp_sign_up(request):
 	user_form = UserForm()
-	# 'username', 'email'
 	if request.method == 'POST':
-		# profile_form = ProfileForm(request.POST, request.FILES)
-		username = {'username': str(request.POST.__getitem__('email')).lower(),
-		            'email': str(request.POST.__getitem__('email')).lower()}
-
-		response = request.POST.copy()
-		response.update(username)
-		print(response)
-
-		user_form = UserForm(response)
+		user_form = UserForm(adding_username(request))
 		if user_form.is_valid():
 			User.objects.create_user(**user_form.cleaned_data)
-
-			user = authenticate(
-				username=user_form.cleaned_data['email'],
-				password=user_form.cleaned_data['password']
-			)
-
-			login(request, user)
-			EmailAuthBackend.authenticate(request, user_form.cleaned_data['email'], user_form.cleaned_data['password'])
-
-			return redirect(authapp_home)
+			return user_login(request)
+			# user = authenticate(
+			# 	username=user_form.cleaned_data['email'],
+			# 	password=user_form.cleaned_data['password']
+			# )
+			#
+			# login(request, user)
+			# # resp = EmailAuthBackend.authenticate(request, user_form.cleaned_data['email'],
+			# #                                      user_form.cleaned_data['password'])
+			# return redirect(authapp_home)
+		else:
+			print(user_form.errors)
+			return render(request, 'designer/sign_up.html', {
+				'user_form': user_form,
+				'error': 'Пользователь с таким именем уже существует.'
+			})
 
 	return render(request, 'designer/sign_up.html', {
 		'user_form': user_form,
@@ -74,16 +130,6 @@ def new_project(request):
 		user = {'user': str(request.user.pk)}
 		response = request.POST.copy()
 		response.update(user)
-
-		# print("response", response)
-		# print('response.__getitem__(name)', response.__getitem__('name'))
-		# name_project = {'name': response.__getitem__('name').encode('utf8')}
-		# response.pop('name')
-		# print("response", response)
-		# response.update(name_project)
-
-		# create_project.update({request.user.pk: response.__getitem__('name')})
-		# project_name = create_project.get(request.user.pk)
 
 		project_form = ProjectForm(response)
 
@@ -116,33 +162,8 @@ def exiting_project(user_id, project_name):
 	return project
 
 
-# Функция для входа на платформу через почту
-class EmailAuthBackend(ModelBackend):
-	def authenticate(self, request, username=None, password=None, **kwargs):
-		if '@' in username:
-			kwargs = {'email': username}
-		else:
-			kwargs = {'username': username}
-
-		try:
-			user = User.objects.get(**kwargs)
-			if user.check_password(password):
-				return user
-			else:
-				return None
-		except User.DoesNotExist:
-			return None
-
-	def get_user(self, user_id):
-		try:
-			return User.objects.get(pk=user_id)
-		except User.DoesNotExist:
-			return None
-
-
 # Функция для работы с таблицей ведомости
 def statement(request, project_name):
-
 	if request.method == 'POST':
 		statement_data = request.POST.copy()
 
@@ -151,24 +172,6 @@ def statement(request, project_name):
 		# 	print(type(request.FILES.getlist('images')[0].name))
 		# 	request.FILES.getlist('images')[0].name = str(request.FILES.getlist('images')[0].name).encode(
 		# 		'utf8').decode('utf8')
-		#
-		# if request.FILES.getlist('file_3dmax'):
-		# 	print(request.FILES.getlist('file_3dmax')[0].name)
-		# 	print(type(request.FILES.getlist('file_3dmax')[0].name))
-		# 	request.FILES.getlist('file_3dmax')[0].name = str(request.FILES.getlist('file_3dmax')[0].name).encode(
-		# 		'utf8').decode('utf8')
-		#
-		# if request.FILES.getlist('file_revit'):
-		# 	print(request.FILES.getlist('file_revit')[0].name)
-		# 	print(type(request.FILES.getlist('file_revit')[0].name))
-		# 	request.FILES.getlist('file_revit')[0].name = str(request.FILES.getlist('file_revit')[0].name).encode(
-		# 		'utf8').decode('utf8')
-		#
-		# if request.FILES.getlist('file_technical_instruction'):
-		# 	print(request.FILES.getlist('file_technical_instruction')[0].name)
-		# 	print(type(request.FILES.getlist('file_technical_instruction')[0].name))
-		# 	request.FILES.getlist('file_technical_instruction')[0].name = str(
-		# 		request.FILES.getlist('file_technical_instruction')[0].name).encode('utf8').decode('utf8')
 
 		total_client_price = int(statement_data.__getitem__('retail_price')) * int(statement_data.__getitem__('qty'))
 		project_id = {'project': get_project_id(project_name, request.user), 'total_client_price': total_client_price}
@@ -185,13 +188,13 @@ def statement(request, project_name):
 
 # Функция для проверки и получения id проекта
 def get_project_id(project_name, user=None):
-	if type(project_name)==type("str"):
+	if type(project_name) == type("str"):
 		try:
 			# project_name = unquote(unquote(unquote(project_name)))
 			return Project.objects.get(name=project_name, user=user).id
 		except Exception as e:
 			return HttpResponse(e)
-	elif type(project_name)==type(1):
+	elif type(project_name) == type(1):
 		return project_name
 	return 'Error, nut such project name'
 
@@ -208,10 +211,11 @@ def get_project_statement(request, project_name):
 
 		statement_form = StatementForm()
 		return render(request, 'designer/statement.html', {
-					'statement_form': statement_form,
-					'statement': project,
-					'total_money': total_money,
-				})
+			'statement_form': statement_form,
+			'statement': project,
+			'total_money': total_money,
+			'project_name': project_name
+		})
 	except Exception as e:
 		print('e', e)
 		return redirect(authapp_home)
@@ -236,38 +240,41 @@ def delete_statement_row(request, project_name, row):
 
 # Функция для генерации пдф
 def generate_pdf(request, project_name):
-		project_id = get_project_id(project_name, request.user)
-		project = Statement.objects.filter(project=project_id)
-		template = get_template('designer/pdf_statement.html')
+	project_id = get_project_id(project_name, request.user)
+	project = Statement.objects.filter(project=project_id)
+	template = get_template('designer/pdf_statement.html')
 
-		html = template.render({'project': project})
-		print('in generate_pdf html', html)
-		options = {
-		    'page-size': 'Letter',
-		    'margin-top': '0.75in',
-		    'margin-right': '0.75in',
-		    'margin-bottom': '0.75in',
-		    'margin-left': '0.75in',
-		    'encoding': "UTF-8",
-		    'no-outline': None
-		}
+	html = template.render({'project': project})
+	options = {
+		'page-size': 'Letter',
+		'margin-top': '0.75in',
+		'margin-right': '0.75in',
+		'margin-bottom': '0.75in',
+		'margin-left': '0.75in',
+		'encoding': "UTF-8",
+		'no-outline': None
+	}
 
-		# config = pdfkit.configuration(wkhtmltopdf="D:\\Programs\\Python38-32\\lib\\site-packages\\wkhtmltopdf")
-		# config = pdfkit.configuration(wkhtmltopdf="D:\\wkhtmltopdf\\bin")
+	# config = pdfkit.configuration(wkhtmltopdf="D:\\Programs\\Python38-32\\lib\\site-packages\\wkhtmltopdf")
 
-		name = 'statement_pdf_1'
-		pdf = pdfkit.from_string(html, name, options=options)
-		print('in generate_pdf  pdf', pdf)
-		with open(name, 'rb') as f:
-			pdf = f.read()
-			response = HttpResponse(pdf, content_type='application/pdf')
-			response['Content-Disposition'] = 'attachment; filename=report.pdf'
-			# os.remove(name)
-		return response
+	name = 'statement_pdf_1'
+	pdf = pdfkit.from_string(html, name, options=options)
+	print('in generate_pdf  pdf', pdf)
+	with open(name, 'rb') as f:
+		pdf = f.read()
+		response = HttpResponse(pdf, content_type='application/pdf')
+		response['Content-Disposition'] = 'attachment; filename=report.pdf'
+	# os.remove(name)
+	return response
 
 
-
-
+# Удаление проекта
+def delete_a_project(request, project_name):
+	try:
+		Project.objects.get(name=project_name, user=request.user.id).delete()
+	except Exception as e:
+		print('e', e)
+	return redirect(authapp_home)
 
 # from django.http import HttpResponse
 # from django.template.loader import render_to_string
@@ -298,60 +305,60 @@ def generate_pdf(request, project_name):
 # 	return response
 
 
-		# pdf = HttpResponse(pdf.getvalue(), content_type='application/pdf')
+# pdf = HttpResponse(pdf.getvalue(), content_type='application/pdf')
 
 
-		# try:
-		#
-		# 	if pdf:
-		# 		response = HttpResponse(pdf, content_type='application/pdf')
-		#
-		# 		filename = "%s%s.pdf" % (name, "12341231")
-		# 		content = "inline; filename='%s'" % (filename)
-		# 		download = request.GET.get("download")
-		# 		if download:
-		# 			content = "attachment; filename='%s'" % (filename)
-		# 		response['Content-Disposition'] = content
-		# 		return response
-		# 	# return HttpResponse("Not found")
-		# except Exception as e:
-		# 	return HttpResponse(str(e), status=500)
+# try:
+#
+# 	if pdf:
+# 		response = HttpResponse(pdf, content_type='application/pdf')
+#
+# 		filename = "%s%s.pdf" % (name, "12341231")
+# 		content = "inline; filename='%s'" % (filename)
+# 		download = request.GET.get("download")
+# 		if download:
+# 			content = "attachment; filename='%s'" % (filename)
+# 		response['Content-Disposition'] = content
+# 		return response
+# 	# return HttpResponse("Not found")
+# except Exception as e:
+# 	return HttpResponse(str(e), status=500)
 
 
-		# response = HttpResponse(pdf, content_type='application/pdf')
-		# response['Content-Disposition'] = 'attachment filename = "statement.pdf"'
-		# return response
+# response = HttpResponse(pdf, content_type='application/pdf')
+# response['Content-Disposition'] = 'attachment filename = "statement.pdf"'
+# return response
 
-	# def get(self, request, project_name, *args, **kwargs):
-		# try:
+# def get(self, request, project_name, *args, **kwargs):
+# try:
 
-		# 	# template = get_template('designer/pdf_statement.html')
-		# 	# print('project_name in the class generatePDF', project_name)
-		# 	project_id = get_project_id(project_name)
-		# 	print('project_id', project_id)
-		# 	project = Statement.objects.filter(project=project_id)
-		# 	print('project', project)
-		# 	context = {
-		# 		'project': project,
-		# 		'pagesize': 'A4',
-		# 	}
-		# 	print('context', context)
-		# 	# html = template.render(context)
-		# 	# print('html', html)
-		# 	pdf = render_to_pdf('designer/pdf_statement.html', context)
-		# 	print('pdf', pdf)
-		# 	if pdf:
-		# 		response = HttpResponse(pdf, content_type='application/pdf')
-		# 		filename = "statement_%s.pdf" % ("12341231")
-		# 		content = "inline; filename='%s'" % (filename)
-		# 		download = request.GET.get("download")
-		# 		if download:
-		# 			content = "attachment; filename='%s'" % (filename)
-		# 		response['Content-Disposition'] = content
-		# 		return response
-		# 	# return HttpResponse("Not found")
-		# except Exception as e:
-		# 	return HttpResponse(str(e), status=500)
+# 	# template = get_template('designer/pdf_statement.html')
+# 	# print('project_name in the class generatePDF', project_name)
+# 	project_id = get_project_id(project_name)
+# 	print('project_id', project_id)
+# 	project = Statement.objects.filter(project=project_id)
+# 	print('project', project)
+# 	context = {
+# 		'project': project,
+# 		'pagesize': 'A4',
+# 	}
+# 	print('context', context)
+# 	# html = template.render(context)
+# 	# print('html', html)
+# 	pdf = render_to_pdf('designer/pdf_statement.html', context)
+# 	print('pdf', pdf)
+# 	if pdf:
+# 		response = HttpResponse(pdf, content_type='application/pdf')
+# 		filename = "statement_%s.pdf" % ("12341231")
+# 		content = "inline; filename='%s'" % (filename)
+# 		download = request.GET.get("download")
+# 		if download:
+# 			content = "attachment; filename='%s'" % (filename)
+# 		response['Content-Disposition'] = content
+# 		return response
+# 	# return HttpResponse("Not found")
+# except Exception as e:
+# 	return HttpResponse(str(e), status=500)
 
 
 #
