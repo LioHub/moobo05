@@ -1,1 +1,0 @@
-web: gunicorn moobo_project.wsgi --log-file -

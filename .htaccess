@@ -1,7 +1,0 @@
-<Directory /var/www/html>
-    RewriteRule wp-cron.php http://moobo.space/wp-cron.php [R=301]
-</Directory>
-
-<Directory /var/www/murad/data/www/moobo.space>
-    RewriteRule wp-cron.php http://moobo.space/wp-cron.php [R=301]
-</Directory>
